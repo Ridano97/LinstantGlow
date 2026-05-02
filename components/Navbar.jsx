@@ -3,7 +3,6 @@
 import { useState, useEffect } from 'react'
 import Image from 'next/image'
 import { motion, AnimatePresence } from 'framer-motion'
-import '../styles/Navbar.css'
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false)
@@ -17,22 +16,25 @@ export default function Navbar() {
 
   return (
     <nav className={`navbar ${scrolled ? 'navbar-scrolled' : ''}`}>
-      <div className="navbar-logo">
+      <a className="navbar-logo" href="#experience" aria-label="Accueil L'Instant Glow">
         <Image
             src="/images-linstantglow/petitlogo.jpg"
             alt="L'Instant Glow"
-            width={90}
-            height={90}
-            style={{ objectFit: 'cover' }}
+            fill
+            sizes="96px"
+            style={{ objectFit: 'contain', objectPosition: 'center' }}
             priority
         />
-      </div>
+      </a>
 
       <ul className="navbar-links">
+        <li><a href="#experience">Expérience</a></li>
         <li><a href="#salon">Le Salon</a></li>
         <li><a href="#prestations">Prestations</a></li>
         <li><a href="#contact">Contact</a></li>
       </ul>
+
+      <a className="navbar-cta" href="#contact">Réserver</a>
 
       <button
         className="navbar-burger"
@@ -53,7 +55,17 @@ export default function Navbar() {
             exit={{ x: '100%' }}
             transition={{ duration: 0.4, ease: 'easeInOut' }}
           >
+            <div className="navbar-mobile-brand">
+              <Image
+                src="/images-linstantglow/logocomplet.jpg"
+                alt="L'Instant Glow"
+                fill
+                sizes="240px"
+                style={{ objectFit: 'contain' }}
+              />
+            </div>
             <ul>
+              <li><a href="#experience" onClick={() => setMenuOpen(false)}>Expérience</a></li>
               <li><a href="#salon" onClick={() => setMenuOpen(false)}>Le Salon</a></li>
               <li><a href="#prestations" onClick={() => setMenuOpen(false)}>Prestations</a></li>
               <li><a href="#contact" onClick={() => setMenuOpen(false)}>Contact</a></li>

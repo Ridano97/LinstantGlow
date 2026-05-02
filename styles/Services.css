@@ -1,77 +1,312 @@
 .services {
-  padding: 5rem 7%;
-  background: #fff;
+  padding: clamp(5rem, 9vw, 8rem) 7%;
+  background:
+    linear-gradient(180deg, rgba(23, 20, 17, 0.02), rgba(116, 128, 111, 0.07)),
+    var(--porcelain);
+}
+
+.services-heading {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(18rem, 0.52fr);
+  align-items: end;
+  gap: 2rem;
+  margin-bottom: 2.4rem;
 }
 
 .services-title {
-  font-family: 'Cormorant Garamond', 'Georgia', serif;
-  font-size: 1.1rem;
-  font-weight: 600;
-  letter-spacing: 0.2em;
-  color: #c9a96e;
-  margin-bottom: 2.5rem;
+  margin: 0;
+  color: var(--ink);
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: clamp(2.2rem, 4.8vw, 4.8rem);
+  font-weight: 400;
+  line-height: 1.02;
+}
+
+.services-intro {
+  margin: 0 0 0.5rem;
+  color: var(--soft-ink);
+  line-height: 1.8;
 }
 
 .services-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 1.2rem;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem;
 }
 
 .services-card {
+  appearance: none;
+  border: 0;
+  padding: 0;
+  text-align: left;
   position: relative;
-  border-radius: 12px;
+  min-height: 33rem;
+  border-radius: 1.05rem;
   overflow: hidden;
   cursor: pointer;
+  background: var(--ink);
+  box-shadow: 0 20px 60px rgba(23, 20, 17, 0.12);
+  transform: translateZ(0);
+}
+
+.services-card:focus-visible {
+  outline: 3px solid rgba(202, 169, 109, 0.7);
+  outline-offset: 4px;
+}
+
+.services-card:nth-child(2) {
+  margin-top: 2rem;
 }
 
 .services-card-img {
-  position: relative;
-  height: 300px;
+  position: absolute;
+  inset: 0;
+}
+
+.services-card-img img {
+  transition: transform 0.8s ease, filter 0.8s ease;
 }
 
 .services-card-overlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(to top, rgba(0,0,0,0.45) 0%, transparent 60%);
+  background:
+    linear-gradient(to top, rgba(23, 20, 17, 0.78) 0%, rgba(23, 20, 17, 0.26) 52%, rgba(255, 255, 255, 0.05) 100%);
   z-index: 1;
-  transition: background 0.3s ease;
+  transition: opacity 0.4s ease;
 }
 
-.services-card:hover .services-card-overlay {
-  background: linear-gradient(to top, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.1) 100%);
+.services-card:hover img {
+  transform: scale(1.08);
+  filter: saturate(1.06) contrast(1.03);
 }
 
 .services-card-info {
   position: absolute;
-  bottom: 1.5rem;
   left: 0;
   right: 0;
+  bottom: 0;
   z-index: 2;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  gap: 0.5rem;
+  align-items: flex-start;
+  gap: 0.8rem;
+  padding: 1.5rem;
+  color: #fff;
 }
 
 .services-card-title {
-  color: #fff;
-  font-size: 0.85rem;
-  font-weight: 600;
-  letter-spacing: 0.15em;
-  text-align: center;
-  white-space: pre-line;
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: clamp(1.8rem, 3vw, 2.7rem);
+  font-weight: 400;
+  line-height: 1.02;
+}
+
+.services-card-text {
+  color: rgba(255, 255, 255, 0.82);
+  line-height: 1.65;
 }
 
 .services-card-arrow {
-  color: #fff;
-  font-size: 0.7rem;
-  opacity: 0.8;
+  display: inline-flex;
+  align-items: center;
+  min-height: 2.35rem;
+  margin-top: 0.35rem;
+  padding: 0 0.9rem;
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  border-radius: 999px;
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 0.66rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
 }
 
-@media (max-width: 768px) {
+.service-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  display: grid;
+  place-items: center;
+  padding: 1rem;
+  background: rgba(23, 20, 17, 0.58);
+  backdrop-filter: blur(8px);
+}
+
+.service-modal {
+  position: relative;
+  width: min(64rem, 100%);
+  max-height: min(40rem, calc(100vh - 2rem));
+  display: grid;
+  grid-template-columns: minmax(16rem, 0.72fr) minmax(20rem, 1fr);
+  overflow: hidden;
+  border-radius: 1.05rem;
+  background: #f6f6f6;
+  box-shadow: 0 32px 100px rgba(0, 0, 0, 0.28);
+}
+
+.service-modal-close {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  z-index: 5;
+  width: 2.4rem;
+  height: 2.4rem;
+  display: grid;
+  place-items: center;
+  border: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.78);
+  color: #111;
+  cursor: pointer;
+  font-size: 2rem;
+  line-height: 1;
+}
+
+.service-modal-media {
+  position: relative;
+  min-height: min(40rem, calc(100vh - 2rem));
+  background: #111;
+}
+
+.service-modal-media-overlay {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(to top, rgba(0, 0, 0, 0.32), transparent 52%),
+    linear-gradient(130deg, rgba(255, 255, 255, 0.2), transparent 34%);
+}
+
+.service-modal-prices {
+  overflow: auto;
+  padding: 2.5rem clamp(1.4rem, 3vw, 3.4rem) 3.5rem;
+}
+
+.service-modal-prices h3,
+.service-price-section h4 {
+  color: #282828;
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 0.34em;
+}
+
+.service-modal-prices h3 {
+  margin: 0 2.5rem 2rem;
+  font-size: clamp(1rem, 2vw, 1.25rem);
+}
+
+.service-price-section {
+  width: min(40rem, 100%);
+  margin: 2rem auto 0;
+}
+
+.service-price-section h4 {
+  margin: 0 0 1.4rem;
+  font-size: clamp(0.95rem, 1.8vw, 1.2rem);
+}
+
+.service-price-list {
+  display: grid;
+  gap: 0.82rem;
+}
+
+.service-price-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 1.5rem;
+  align-items: baseline;
+  color: #2e2e2e;
+  font-size: 0.95rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+}
+
+.service-price-row span {
+  line-height: 1.45;
+}
+
+.service-price-row strong {
+  font-family: Georgia, serif;
+  font-size: 1.05rem;
+  font-weight: 400;
+  white-space: nowrap;
+}
+
+.service-modal-planity {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 3.2rem;
+  margin-top: 2.5rem;
+  color: #fff;
+  background: var(--ink);
+  border-radius: 999px;
+  text-decoration: none;
+  font-size: 0.72rem;
+  font-weight: 850;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+@media (max-width: 900px) {
+  .services {
+    padding: 4.5rem 1rem;
+  }
+
+  .services-heading {
+    grid-template-columns: 1fr;
+  }
+
   .services-grid {
     grid-template-columns: 1fr;
-    gap: 1rem;
+  }
+
+  .services-card,
+  .services-card:nth-child(2) {
+    min-height: 27rem;
+    margin-top: 0;
+  }
+}
+
+@media (max-width: 900px) {
+  .service-modal {
+    grid-template-columns: 1fr;
+    max-height: calc(100vh - 1rem);
+  }
+
+  .service-modal-media {
+    min-height: 16rem;
+  }
+
+  .service-modal-prices {
+    max-height: calc(100vh - 17rem);
+    padding: 2.1rem 1.1rem 4rem;
+  }
+
+  .service-price-row {
+    gap: 0.8rem;
+    font-size: 0.8rem;
+    letter-spacing: 0.16em;
+  }
+}
+
+@media (max-width: 520px) {
+  .service-modal-backdrop {
+    padding: 0;
+  }
+
+  .service-modal {
+    width: 100%;
+    height: 100%;
+    max-height: none;
+    border-radius: 0;
+  }
+
+  .service-modal-media {
+    min-height: 13.5rem;
+  }
+
+  .service-price-section {
+    margin-top: 1.7rem;
   }
 }

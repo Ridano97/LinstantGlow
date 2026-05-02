@@ -2,7 +2,6 @@
 
 import Image from 'next/image'
 import { motion } from 'framer-motion'
-import '../styles/About.css'
 
 export default function About() {
   return (
@@ -20,6 +19,20 @@ export default function About() {
           fill
           style={{ objectFit: 'cover' }}
         />
+        <motion.div
+          className="about-image-small"
+          initial={{ opacity: 0, y: 38 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.9, delay: 0.35, ease: 'easeOut' }}
+          viewport={{ once: true }}
+        >
+          <Image
+            src="/images-linstantglow/14.jpeg"
+            alt="Detail soin L'Instant Glow"
+            fill
+            style={{ objectFit: 'cover' }}
+          />
+        </motion.div>
       </motion.div>
 
       <motion.div
@@ -29,10 +42,16 @@ export default function About() {
         transition={{ duration: 1, ease: 'easeOut', delay: 0.2 }}
         viewport={{ once: true }}
       >
-        <h2 className="about-title">L'EXPÉRIENCE GLOW</h2>
-        <p>Chez L'Instant Glow, la beauté n'est pas une routine, c'est un moment rien que pour vous. Niché au cœur de Prévessin-Moëns, notre institut réunit une équipe de passionnées, Siham, Sefora, Sana et Lilou, qui mettent leur expertise au service de votre éclat.</p>
-        <p>De l'extension de cils au brow lift, du spray tan au drainage lymphatique, chaque soin est pensé avec précision et bienveillance.</p>
-        <p>Ici, vous n'êtes pas un rendez-vous de plus : vous êtes notre priorité.</p>
+        <p className="section-kicker">Le salon</p>
+        <h2 className="about-title">Une parenthèse beauté pensée comme un rituel privé.</h2>
+        <p>Chez L&apos;Instant Glow, la beauté n&apos;est pas une routine, c&apos;est un moment rien que pour vous. Niché au cœur de Prévessin-Moëns, notre institut réunit une équipe de passionnées, Siham, Sefora, Sana et Lilou, qui mettent leur expertise au service de votre éclat.</p>
+        <p>De l&apos;extension de cils au brow lift, du spray tan au drainage lymphatique, chaque soin est pensé avec précision et bienveillance.</p>
+        <p>Ici, vous n&apos;êtes pas un rendez-vous de plus : vous êtes notre priorité.</p>
+        <div className="about-metrics">
+          <span><strong>4</strong> expertes beauté</span>
+          <span><strong>360°</strong> regard, peau, corps</span>
+          <span><strong>Glow</strong> naturel et durable</span>
+        </div>
       </motion.div>
     </section>
   )
