@@ -27,12 +27,15 @@
 }
 
 .atelier-video,
-.atelier-photo {
+.atelier-photo,
+.atelier-photo-motion {
   position: relative;
   overflow: hidden;
   border-radius: 1rem;
   background: var(--ink);
   box-shadow: 0 22px 70px rgba(23, 20, 17, 0.12);
+  transition: box-shadow 0.55s ease, filter 0.55s ease;
+  isolation: isolate;
 }
 
 .atelier-video {
@@ -46,20 +49,58 @@
   object-fit: cover;
   display: block;
   filter: saturate(1.08) contrast(1.03);
+  transition: transform 0.75s ease, filter 0.75s ease;
+}
+
+.atelier-video::before,
+.atelier-photo::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  border: 1px solid rgba(255, 244, 220, 0.54);
+  border-radius: inherit;
+  box-shadow:
+    inset 0 0 0 1px rgba(202, 169, 109, 0.16),
+    0 28px 80px rgba(119, 90, 68, 0.22);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.55s ease;
 }
 
 .atelier-video::after {
   content: '';
   position: absolute;
   inset: 0;
-  background: linear-gradient(to top, rgba(23, 20, 17, 0.58), transparent 54%);
+  z-index: 1;
+  background:
+    linear-gradient(to top, rgba(23, 20, 17, 0.58), transparent 54%);
+  opacity: 1;
+  transition: opacity 0.55s ease;
+}
+
+.atelier-video:hover,
+.atelier-photo:hover {
+  box-shadow:
+    0 32px 95px rgba(84, 61, 45, 0.24),
+    0 0 0 1px rgba(202, 169, 109, 0.18);
+}
+
+.atelier-video:hover::before,
+.atelier-photo:hover::before {
+  opacity: 1;
+}
+
+.atelier-video:hover video {
+  transform: scale(1.045);
+  filter: saturate(1.14) contrast(1.06);
 }
 
 .atelier-video-caption {
   position: absolute;
   left: 1.5rem;
   bottom: 1.5rem;
-  z-index: 1;
+  z-index: 3;
   width: min(27rem, calc(100% - 3rem));
   color: #fff;
 }
@@ -93,26 +134,53 @@
   margin: 0;
 }
 
-.atelier-photo img {
-  transition: transform 0.65s ease;
+.atelier-photo-motion {
+  min-height: clamp(12rem, 22vw, 17.5rem);
 }
 
-.atelier-photo:hover img {
-  transform: scale(1.07);
+.atelier-photo-img {
+  opacity: 0;
+  transform: scale(1.035);
+  filter: saturate(0.96) contrast(0.98);
+  transition:
+    opacity 1.8s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 7.2s cubic-bezier(0.22, 1, 0.36, 1),
+    filter 1.8s ease;
+}
+
+.atelier-photo-img.is-active {
+  opacity: 1;
+  transform: scale(1.01);
+  filter: saturate(1.04) contrast(1.02);
+}
+
+.atelier-photo:hover .atelier-photo-img.is-active {
+  transform: scale(1.075);
+  filter: saturate(1.12) contrast(1.05);
+}
+
+.atelier-carousel-dots {
+  top: 0.85rem;
+  right: 0.85rem;
 }
 
 .atelier-photo::after {
   content: '';
   position: absolute;
   inset: 0;
-  background: linear-gradient(to top, rgba(23, 20, 17, 0.38), transparent 50%);
+  z-index: 1;
+  background:
+    radial-gradient(circle at 50% 16%, rgba(255, 255, 255, 0.16), transparent 14rem),
+    linear-gradient(to top, rgba(23, 20, 17, 0.38), transparent 50%);
+  opacity: 0.92;
+  transition: opacity 0.55s ease;
 }
 
 .atelier-photo figcaption {
   position: absolute;
   left: 1rem;
   bottom: 1rem;
-  z-index: 1;
+  z-index: 3;
   color: #fff;
   font-size: 0.68rem;
   font-weight: 850;
@@ -135,13 +203,33 @@
   }
 }
 
+@media (min-width: 981px) {
+  .atelier-heading {
+    margin-bottom: clamp(1.2rem, 3vh, 2rem);
+  }
+
+  .atelier-heading h2 {
+    font-size: clamp(2.2rem, 4.6vw, 4.6rem);
+  }
+
+  .atelier-video {
+    min-height: clamp(23rem, 50vh, 34rem);
+  }
+
+  .atelier-photo,
+  .atelier-photo-motion {
+    min-height: clamp(10.5rem, 22vh, 16rem);
+  }
+}
+
 @media (max-width: 560px) {
   .atelier-gallery {
     grid-template-columns: 1fr;
   }
 
   .atelier-video,
-  .atelier-photo {
+  .atelier-photo,
+  .atelier-photo-motion {
     min-height: 21rem;
   }
 }

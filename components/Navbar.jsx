@@ -70,6 +70,15 @@ export default function Navbar() {
               <li><a href="#prestations" onClick={() => setMenuOpen(false)}>Prestations</a></li>
               <li><a href="#contact" onClick={() => setMenuOpen(false)}>Contact</a></li>
             </ul>
+            <a
+              className="navbar-mobile-cta"
+              href="https://www.planity.com/linstant-glow-01280-prevessin-moens"
+              target="_blank"
+              rel="noreferrer"
+            >
+              Réserver
+            </a>
+            <span className="navbar-mobile-signature">Prévessin-Moëns · Pays de Gex</span>
           </motion.div>
         )}
       </AnimatePresence>

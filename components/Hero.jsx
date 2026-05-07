@@ -5,7 +5,7 @@ import { motion } from 'framer-motion'
 
 export default function Hero() {
   return (
-    <section className="hero" id="experience">
+    <section className="hero">
       <motion.div
         className="hero-ambient hero-ambient-one"
         animate={{ y: [0, -18, 0], opacity: [0.55, 0.75, 0.55] }}
@@ -23,16 +23,23 @@ export default function Hero() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, ease: 'easeOut' }}
         >
-          Prévessin-Moëns · Pays de Gex
         </motion.p>
         <motion.h1
-          className="hero-title"
+          className="hero-title hero-title-logo-wrap"
           initial={{ opacity: 0, y: 28 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1.2, ease: 'easeOut' }}
         >
-          <span className="hero-title-script">L&apos;Instant</span>
-          <span className="hero-title-bold">GLOW.</span>
+          <span className="sr-only">L&apos;Instant Glow — Institut de beauté &amp; salon UV</span>
+          <Image
+            src="/images-linstantglow/logocompletheros.png"
+            alt="L'Instant Glow — Institut de beauté & salon UV"
+            width={2000}
+            height={500}
+            sizes="(max-width: 900px) 96vw, 56rem"
+            className="hero-title-logo"
+            priority
+          />
         </motion.h1>
 
         <motion.p
@@ -41,7 +48,7 @@ export default function Hero() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, delay: 0.4, ease: 'easeOut' }}
         >
-          Institut de beauté, salon UV et rituels glow pour un résultat précis, lumineux et naturellement élégant.
+          Institut de beauté, salon UV et soins glow pour un résultat précis, lumineux et naturellement élégant.
         </motion.p>
 
         <motion.div
@@ -51,7 +58,7 @@ export default function Hero() {
           transition={{ duration: 1, delay: 0.7, ease: 'easeOut' }}
         >
           <a href="#contact" className="hero-btn">Réservez votre soin</a>
-          <a href="#prestations" className="hero-btn-secondary">Découvrir les rituels</a>
+          <a href="#prestations" className="hero-btn-secondary">Découvrir les soins</a>
         </motion.div>
 
         <motion.div
@@ -62,35 +69,14 @@ export default function Hero() {
         >
           <span>Extensions de cils</span>
           <span>Brow lift</span>
-          <span>Spray tan</span>
-          <span>Drainage</span>
+          <span>Soin visage</span>
+          <span>Blanchiment dentaire</span>
+          <span>Corps & Soleil UV</span>
+          <span>Beauté des mains & pieds</span>
+         
         </motion.div>
       </div>
 
-      <motion.div
-        className="hero-image"
-        initial={{ opacity: 0, scale: 1.05 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 1.5, ease: 'easeOut' }}
-      >
-        <Image
-          src="/images-linstantglow/20.jpg"
-          alt="L'Instant Glow"
-          fill
-          style={{ objectFit: 'cover', objectPosition: 'center top' }}
-          priority
-        />
-        <div className="hero-image-shine" />
-        <motion.div
-          className="hero-floating-card"
-          initial={{ opacity: 0, y: 24 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.9, delay: 1.1, ease: 'easeOut' }}
-        >
-          <span>Rituel signature</span>
-          <strong>Votre éclat, notre précision.</strong>
-        </motion.div>
-      </motion.div>
     </section>
   )
 }

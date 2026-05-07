@@ -1,4 +1,6 @@
 import Navbar from '@/components/Navbar'
+import ScrollProgress from '@/components/ScrollProgress'
+import LuxuryScroll from '@/components/LuxuryScroll'
 import Hero from '@/components/Hero'
 import About from '@/components/About'
 import Services from '@/components/Services'
@@ -13,6 +15,7 @@ const localBusinessJsonLd = {
   url: "https://www.planity.com/linstant-glow-01280-prevessin-moens",
   sameAs: [
     "https://www.instagram.com/linstantglow/",
+    "https://www.tiktok.com/@linstantglow3",
     "https://www.planity.com/linstant-glow-01280-prevessin-moens",
   ],
   telephone: "+33328554433",
@@ -45,8 +48,10 @@ const localBusinessJsonLd = {
       { "@type": "Offer", itemOffered: { "@type": "Service", name: "Extension de cils" } },
       { "@type": "Offer", itemOffered: { "@type": "Service", name: "Browlift" } },
       { "@type": "Offer", itemOffered: { "@type": "Service", name: "Soin visage" } },
+      { "@type": "Offer", itemOffered: { "@type": "Service", name: "Blanchiment dentaire" } },
+      { "@type": "Offer", itemOffered: { "@type": "Service", name: "Beauté des mains" } },
+      { "@type": "Offer", itemOffered: { "@type": "Service", name: "Beauté des pieds" } },
       { "@type": "Offer", itemOffered: { "@type": "Service", name: "Spray tan" } },
-      { "@type": "Offer", itemOffered: { "@type": "Service", name: "Drainage lymphatique" } },
       { "@type": "Offer", itemOffered: { "@type": "Service", name: "Salon UV" } },
     ],
   },
@@ -59,12 +64,24 @@ export default function Home() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusinessJsonLd) }}
       />
+      <ScrollProgress />
+      <LuxuryScroll />
       <Navbar />
-      <Hero />
-      <About />
-      <Services />
-      <Atelier />
-      <Slogan />
+      <div className="scene-scroll">
+        <span id="experience" className="scene-anchor scene-anchor-0" aria-hidden="true" />
+        <span id="salon" className="scene-anchor scene-anchor-1" aria-hidden="true" />
+        <span id="prestations" className="scene-anchor scene-anchor-2" aria-hidden="true" />
+        <span id="atelier" className="scene-anchor scene-anchor-3" aria-hidden="true" />
+        <span id="contact" className="scene-anchor scene-anchor-4" aria-hidden="true" />
+
+        <div className="scene-stage">
+          <div className="scene-panel scene-panel-hero"><Hero /></div>
+          <div className="scene-panel scene-panel-about"><About /></div>
+          <div className="scene-panel scene-panel-services"><Services /></div>
+          <div className="scene-panel scene-panel-atelier"><Atelier /></div>
+          <div className="scene-panel scene-panel-slogan"><Slogan /></div>
+        </div>
+      </div>
     </main>
   )
 }

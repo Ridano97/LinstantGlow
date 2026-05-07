@@ -7,10 +7,10 @@
 
 :root {
   --ink: #171411;
-  --soft-ink: #4c4139;
-  --muted: #81746b;
-  --veil: #fbf8f3;
-  --porcelain: #fffdf8;
+  --soft-ink: #55463b;
+  --muted: #8a796c;
+  --veil: #eadcca;
+  --porcelain: #efe2d0;
   --champagne: #caa96d;
   --rose: #d9a8a0;
   --sage: #74806f;
@@ -24,16 +24,25 @@
 
 html {
   scroll-behavior: smooth;
-  background: var(--porcelain);
+  background: #efe2d0;
 }
 
 body {
   margin: 0;
   font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   color: var(--ink);
-  background:
-    radial-gradient(circle at 12% 14%, rgba(217, 168, 160, 0.22), transparent 24rem),
-    linear-gradient(135deg, var(--porcelain) 0%, var(--veil) 52%, #f4efe7 100%);
+  background: #efe2d0;
+}
+
+html.scene-fullpage,
+body.scene-fullpage {
+  height: 100%;
+  overflow: hidden;
+}
+
+body.scene-fullpage main {
+  height: 100svh;
+  overflow: hidden;
 }
 
 a {
@@ -47,7 +56,46 @@ textarea {
 }
 
 main {
-  overflow: hidden;
+  overflow-x: hidden;
+}
+
+.scene-scroll {
+  position: relative;
+}
+
+.scene-stage {
+  position: relative;
+}
+
+.scene-panel {
+  position: relative;
+}
+
+.scene-anchor {
+  position: absolute;
+  left: 0;
+  width: 1px;
+  height: 1px;
+  pointer-events: none;
+}
+
+.scene-anchor-0 { top: 0; }
+.scene-anchor-1 { top: 100svh; }
+.scene-anchor-2 { top: 200svh; }
+.scene-anchor-3 { top: 300svh; }
+.scene-anchor-4 { top: 400svh; }
+
+.scroll-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 200;
+  width: 100%;
+  height: 3px;
+  background: linear-gradient(90deg, transparent, #caa96d 18%, #fff4dc 50%, #775a44 82%, transparent);
+  box-shadow: 0 0 18px rgba(202, 169, 109, 0.45);
+  transform-origin: 0 50%;
+  pointer-events: none;
 }
 
 ::selection {
@@ -105,5 +153,107 @@ main {
     animation-iteration-count: 1 !important;
     scroll-behavior: auto !important;
     transition-duration: 0.001ms !important;
+  }
+}
+
+@media (min-width: 901px) {
+  .scene-scroll {
+    height: 500svh;
+  }
+
+  .scene-stage {
+    position: sticky;
+    top: 0;
+    height: 100svh;
+    overflow: hidden;
+    background: #efe2d0;
+  }
+
+  .scene-panel {
+    position: absolute;
+    inset: 0;
+    height: 100svh;
+    overflow: hidden;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transform: translate3d(var(--scene-enter-x, 100%), var(--scene-enter-y, 0), 0) scale(0.985);
+    transition:
+      transform 0.98s cubic-bezier(0.76, 0, 0.24, 1),
+      opacity 0.72s ease,
+      visibility 0s linear 0.98s;
+    will-change: transform, opacity, visibility;
+    z-index: 0;
+  }
+
+  .scene-panel:first-child {
+    opacity: 1;
+    visibility: visible;
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+
+  html.scene-fullpage .scene-panel:first-child:not(.scene-panel-active):not(.scene-panel-exit) {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transform: translate3d(var(--scene-enter-x, 100%), var(--scene-enter-y, 0), 0) scale(0.985);
+  }
+
+  .scene-panel-active,
+  .scene-panel:first-child.scene-panel-active {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transform: translate3d(0, 0, 0) scale(1);
+    transition:
+      transform 0.98s cubic-bezier(0.76, 0, 0.24, 1),
+      opacity 0.72s ease;
+    z-index: 3;
+  }
+
+  .scene-panel-exit,
+  .scene-panel:first-child.scene-panel-exit {
+    opacity: 0;
+    visibility: visible;
+    pointer-events: none;
+    transform: translate3d(var(--scene-exit-x, -38%), var(--scene-exit-y, 0), 0) scale(0.97);
+    transition:
+      transform 0.98s cubic-bezier(0.76, 0, 0.24, 1),
+      opacity 0.72s ease;
+    z-index: 2;
+  }
+
+  html.scene-fullpage .scene-scroll {
+    height: 100svh;
+    overflow: hidden;
+  }
+
+  html.scene-fullpage .scene-stage {
+    position: relative;
+    height: 100svh;
+  }
+
+  html.scene-fullpage .scene-anchor {
+    top: 0;
+  }
+
+  .scene-panel > .hero,
+  .scene-panel > .about,
+  .scene-panel > .services,
+  .scene-panel > .atelier,
+  .scene-panel > .slogan {
+    height: 100%;
+    min-height: 100%;
+    max-height: 100%;
+    overflow: hidden;
+  }
+
+  .about,
+  .services,
+  .atelier,
+  .slogan {
+    display: grid;
+    align-content: center;
+    padding-block: clamp(6.5rem, 10vh, 8rem) clamp(2.5rem, 5vh, 4rem);
   }
 }

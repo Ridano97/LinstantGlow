@@ -1,15 +1,70 @@
 'use client'
 
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import Image from 'next/image'
-import { motion, AnimatePresence } from 'framer-motion'
+import { motion, AnimatePresence, useInView } from 'framer-motion'
+
+function AutoImageCarousel({ images, alt, sizes, isActive = true }) {
+  const ref = useRef(null)
+  const inView = useInView(ref, { margin: '-18% 0px -18% 0px' })
+  const [activeIndex, setActiveIndex] = useState(0)
+
+  useEffect(() => {
+    if (!isActive || !inView || images.length < 2) return undefined
+
+    const timer = window.setInterval(() => {
+      setActiveIndex((current) => (current + 1) % images.length)
+    }, 3600)
+
+    return () => window.clearInterval(timer)
+  }, [images.length, inView, isActive])
+
+  return (
+    <div ref={ref} className="auto-image-carousel">
+      {images.map((image, index) => (
+        <Image
+          key={image}
+          src={`/images-linstantglow/${image}`}
+          alt={alt}
+          fill
+          sizes={sizes}
+          className={`auto-image-carousel-img ${index === activeIndex ? 'is-active' : ''}`}
+          style={{ objectFit: 'cover', objectPosition: 'center' }}
+        />
+      ))}
+      {images.length > 1 && (
+        <div className="carousel-dots" aria-hidden="true">
+          {images.map((image, index) => (
+            <span key={`${image}-dot`} className={index === activeIndex ? 'is-active' : ''} />
+          ))}
+        </div>
+      )}
+    </div>
+  )
+}
+
+function ServiceImage({ service, sizes }) {
+  if (service.images.length > 1) {
+    return <AutoImageCarousel images={service.images} alt={service.title} sizes={sizes} />
+  }
+
+  return (
+    <Image
+      src={`/images-linstantglow/${service.images[0]}`}
+      alt={service.title}
+      fill
+      sizes={sizes}
+      style={{ objectFit: 'cover', objectPosition: 'center' }}
+    />
+  )
+}
 
 const services = [
   {
     title: 'Regard couture',
     img: '18.jpg',
     text: 'Extensions de cils, rehaussement, brow lift et restructuration pour ouvrir le regard avec finesse.',
-    images: ['18.jpg', '17.jpg', '3.jpeg'],
+    images: ['18.jpg'],
     sections: [
       {
         title: 'Extension de cil',
@@ -42,8 +97,8 @@ const services = [
   {
     title: 'Peau lumineuse',
     img: '21.jpg',
-    text: 'Soins visage, glow skin et protocoles ciblés pour une peau nette, souple et éclatante.',
-    images: ['21.jpg', '1.jpg', '14.jpeg'],
+    text: 'Soins visage, un sourire lumineux, glow skin et protocoles ciblés pour une peau nette, souple et éclatante.',
+    images: ['21.jpg', '30.png'],
     sections: [
       {
         title: 'Soin visage',
@@ -76,8 +131,8 @@ const services = [
   {
     title: 'Corps & bien-être',
     img: '19.jpg',
-    text: 'Drainage lymphatique, spray tan et rituels silhouette pour une sensation légère et solaire.',
-    images: ['19.jpg', '5.jpeg', '8.jpeg'],
+    text: 'Massages, spray tan et soins bien-être pour une sensation légère et solaire.',
+    images: ['19.jpg'],
     sections: [
       {
         title: 'Corps & soleil',
@@ -98,17 +153,6 @@ const services = [
         ],
       },
       {
-        title: 'Drainage & sculpt',
-        rows: [
-          ['Drainage lymphatique corps complet - 6 séances', '600€'],
-          ['Drainage lymphatique corps complet', '120€'],
-          ['Drainage lymphatique jambes complètes', '70€'],
-          ['Drainage lymphatique ventre/dos', '70€'],
-          ['Drainage lymphatique visage', '50€'],
-          ['Madérothérapie corps complet', '120€'],
-        ],
-      },
-      {
         title: 'UV',
         rows: [
           ['10 minutes', '10€'],
@@ -116,6 +160,37 @@ const services = [
           ['20 minutes', '20€'],
           ['25 minutes', '25€'],
           ['30 minutes', '30€'],
+        ],
+      },
+    ],
+  },
+  {
+    title: 'Beauté mains & pieds',
+    img: '31.png',
+    text: 'Manucure, semi-permanent, gel et beauté des pieds pour une finition nette et soignée.',
+    images: ['31.png'],
+    sections: [
+      {
+        title: 'Beauté des mains',
+        rows: [
+          ['Manucure', '35€'],
+          ['Semi-permanent', '50€'],
+          ['Dépose semi-permanent', '20€'],
+          ['Pose gel sur ongles naturels', '70€'],
+          ['Pose capsule gel', '75€'],
+        ],
+      },
+      {
+        title: 'Beauté des pieds',
+        rows: [
+          ['Semi-permanent pieds', '50€'],
+          ['Dépose semi-permanent pied', '20€'],
+          ['Mise en beauté des pieds pedispa', '55€'],
+          ['Mise en beauté des pieds + semi-permanent', '85€'],
+          ['Rallongement grand orteil gel pied', '5€'],
+          ['Capsule gel pied', '65€'],
+          ['Dépose capsule gel pied', '10€'],
+          ['Vernis personnel', '15€'],
         ],
       },
     ],
@@ -130,13 +205,13 @@ export default function Services() {
   const closeService = () => setActiveService(null)
 
   return (
-    <section className="services" id="prestations">
+    <section className="services">
       <div className="services-heading">
         <div>
           <p className="section-kicker">Prestations</p>
           <h2 className="services-title">Des soins précis, un fini naturellement luxueux.</h2>
         </div>
-        <p className="services-intro">Chaque rituel est choisi selon votre peau, votre rythme et l&apos;effet recherché : subtil, intense ou solaire.</p>
+        <p className="services-intro">Chaque soin est choisi selon votre peau, votre rythme et l&apos;effet recherché : subtil, intense ou solaire.</p>
       </div>
 
       <div className="services-grid">
@@ -152,13 +227,7 @@ export default function Services() {
             viewport={{ once: true }}
           >
             <div className="services-card-img">
-              <Image
-                src={`/images-linstantglow/${s.img}`}
-                alt={s.title}
-                fill
-                sizes="(max-width: 900px) 100vw, 33vw"
-                style={{ objectFit: 'cover' }}
-              />
+              <ServiceImage service={s} sizes="(max-width: 700px) 100vw, (max-width: 1180px) 50vw, 25vw" />
               <div className="services-card-overlay" />
               <div className="services-card-info">
                 <span className="services-card-title">{s.title}</span>
@@ -191,13 +260,7 @@ export default function Services() {
               <button className="service-modal-close" type="button" onClick={closeService} aria-label="Fermer les prestations">×</button>
 
               <div className="service-modal-media">
-                <Image
-                  src={`/images-linstantglow/${activeService.img}`}
-                  alt={activeService.title}
-                  fill
-                  sizes="(max-width: 900px) 100vw, 42vw"
-                  style={{ objectFit: 'cover', objectPosition: 'center' }}
-                />
+                <ServiceImage service={activeService} sizes="(max-width: 900px) 100vw, 42vw" />
                 <div className="service-modal-media-overlay" />
               </div>
 

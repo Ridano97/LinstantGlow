@@ -23,9 +23,18 @@ function InstagramIcon() {
   )
 }
 
+function TiktokIcon() {
+  return (
+    <svg className="tiktok-icon" viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M14.4 3v11.1a4.5 4.5 0 1 1-4.5-4.5c.4 0 .8.05 1.15.16v2.95a1.8 1.8 0 1 0 1.2 1.7V3h2.15Z" />
+      <path d="M14.4 6.25c1.05 1.6 2.5 2.42 4.35 2.48v2.85c-1.7-.05-3.15-.58-4.35-1.6" />
+    </svg>
+  )
+}
+
 export default function Slogan() {
   return (
-    <footer className="slogan" id="contact">
+    <footer className="slogan">
       <div className="slogan-inner">
         <motion.div
           className="slogan-media"
@@ -52,15 +61,8 @@ export default function Slogan() {
         >
           <p className="section-kicker">Contact</p>
           <span className="slogan-line1">Votre éclat,</span>
-          <span className="slogan-line2">notre rituel</span>
+          <span className="slogan-line2">notre signature</span>
           <p className="slogan-copy">Réservez votre soin en ligne ou retrouvez l&apos;institut à Prévessin-Moëns pour un moment beauté précis, doux et lumineux.</p>
-          <div className="slogan-details">
-            <a href="https://www.planity.com/linstant-glow-01280-prevessin-moens" target="_blank" rel="noreferrer">Planity</a>
-            <a className="instagram-button" href="https://www.instagram.com/linstantglow/" target="_blank" rel="noreferrer" aria-label="Instagram L'Instant Glow">
-              <InstagramIcon />
-              <span className="sr-only">Instagram</span>
-            </a>
-          </div>
         </motion.div>
       </div>
 
@@ -84,6 +86,10 @@ export default function Slogan() {
             <a className="instagram-button" href="https://www.instagram.com/linstantglow/" target="_blank" rel="noreferrer" aria-label="Instagram L'Instant Glow">
               <InstagramIcon />
               <span className="sr-only">Instagram</span>
+            </a>
+            <a className="tiktok-button" href="https://www.tiktok.com/@linstantglow3" target="_blank" rel="noreferrer" aria-label="TikTok L'Instant Glow">
+              <TiktokIcon />
+              <span className="sr-only">TikTok</span>
             </a>
             <a href="https://www.planity.com/linstant-glow-01280-prevessin-moens" target="_blank" rel="noreferrer">Planity</a>
           </div>
