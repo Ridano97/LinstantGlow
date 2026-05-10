@@ -6,6 +6,15 @@ import { motion } from 'framer-motion'
 export default function Hero() {
   return (
     <section className="hero">
+      <Image
+        src="/images-linstantglow/rond.jpeg"
+        alt=""
+        fill
+        sizes="100vw"
+        className="hero-bg-img"
+        priority
+        aria-hidden="true"
+      />
       <motion.div
         className="hero-ambient hero-ambient-one"
         animate={{ y: [0, -18, 0], opacity: [0.55, 0.75, 0.55] }}

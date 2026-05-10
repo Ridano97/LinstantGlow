@@ -15,9 +15,19 @@
   position: absolute;
   inset: 0;
   background:
-    linear-gradient(180deg, rgba(239, 226, 208, 0.04) 0%, rgba(239, 226, 208, 0.14) 54%, rgba(239, 226, 208, 0.48) 100%),
-    url('/images-linstantglow/rond.jpeg') center var(--hero-bg-y) / cover no-repeat;
+    linear-gradient(180deg, rgba(239, 226, 208, 0.04) 0%, rgba(239, 226, 208, 0.14) 54%, rgba(239, 226, 208, 0.48) 100%);
   opacity: 1;
+  pointer-events: none;
+}
+
+.hero-bg-img {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center var(--hero-bg-y);
   pointer-events: none;
 }
 
@@ -158,9 +168,8 @@
 }
 
 .hero-btn {
-  color: #fff;
-  background: var(--ink);
-  border: 1px solid var(--ink);
+  color: black;
+  background: #CECBC4;
   box-shadow: 0 20px 45px rgba(23, 20, 17, 0.18);
 }
 
@@ -241,11 +250,13 @@
     width: auto;
     height: auto;
     border-radius: 0;
-    background:
-      linear-gradient(180deg, rgba(239, 226, 208, 0.42), rgba(239, 226, 208, 0.42)),
-      url('/images-linstantglow/rond.jpeg') center center / cover no-repeat;
+    background: linear-gradient(180deg, rgba(239, 226, 208, 0.42), rgba(239, 226, 208, 0.42));
     box-shadow: none;
     transform: none;
+  }
+
+  .hero-bg-img {
+    object-position: center center;
   }
 
   .hero::after {

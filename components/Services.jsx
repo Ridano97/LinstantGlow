@@ -99,7 +99,7 @@ const services = [
     title: 'Peau lumineuse',
     img: '21.jpg',
     text: 'Soins visage, un sourire lumineux, glow skin et protocoles ciblés pour une peau nette, souple et éclatante.',
-    images: ['21.jpg', '30.png'],
+    images: ['21.jpg', '30-optimized.jpg'],
     sections: [
       {
         title: 'Soin visage',
@@ -167,9 +167,9 @@ const services = [
   },
   {
     title: 'Beauté mains & pieds',
-    img: '31.png',
+    img: '31-optimized.jpg',
     text: 'Manucure, semi-permanent, gel et beauté des pieds pour une finition nette et soignée.',
-    images: ['31.png'],
+    images: ['31-optimized.jpg'],
     sections: [
       {
         title: 'Beauté des mains',
@@ -200,11 +200,11 @@ const services = [
 
 export default function Services() {
   const [activeService, setActiveService] = useState(null)
-  const [mounted, setMounted] = useState(false)
+  const canUsePortal = typeof document !== 'undefined'
 
-  useEffect(() => {
-    setMounted(true)
-  }, [])
+  const openService = (service) => setActiveService(service)
+
+  const closeService = () => setActiveService(null)
 
   useEffect(() => {
     if (!activeService) return undefined
@@ -221,10 +221,6 @@ export default function Services() {
       window.removeEventListener('keydown', handleKeyDown)
     }
   }, [activeService])
-
-  const openService = (service) => setActiveService(service)
-
-  const closeService = () => setActiveService(null)
 
   const serviceModal = (
     <AnimatePresence>
@@ -314,7 +310,7 @@ export default function Services() {
         ))}
       </div>
 
-      {mounted ? createPortal(serviceModal, document.body) : null}
+      {canUsePortal ? createPortal(serviceModal, document.body) : null}
     </section>
   )
 }

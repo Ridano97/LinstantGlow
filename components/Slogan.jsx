@@ -150,7 +150,6 @@ export default function Slogan() {
               alt="L'Instant Glow"
               width={520}
               height={260}
-              priority
             />
           </div>
         </motion.div>

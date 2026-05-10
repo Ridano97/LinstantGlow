@@ -17,22 +17,9 @@ export default function About() {
           src="/images-linstantglow/10.jpeg"
           alt="L'Instant Glow salon"
           fill
+          sizes="(max-width: 900px) 92vw, 38vw"
           style={{ objectFit: 'cover' }}
         />
-        <motion.div
-          className="about-image-small"
-          initial={{ opacity: 0, y: 38 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.9, delay: 0.35, ease: 'easeOut' }}
-          viewport={{ once: true }}
-        >
-          <Image
-            src="/images-linstantglow/5.jpeg"
-            alt="Detail soin L'Instant Glow"
-            fill
-            style={{ objectFit: 'cover' }}
-          />
-        </motion.div>
       </motion.div>
 
       <motion.div

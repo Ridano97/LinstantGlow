@@ -33,7 +33,6 @@ export default function Navbar() {
               fill
               sizes="96px"
               style={{ objectFit: 'contain', objectPosition: 'center' }}
-              priority
           />
         </a>
 
@@ -44,7 +43,6 @@ export default function Navbar() {
             fill
             sizes="72px"
             style={{ objectFit: 'contain', objectPosition: 'center' }}
-            priority
           />
         </a>
 

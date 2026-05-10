@@ -131,6 +131,14 @@
     filter 1.2s ease;
 }
 
+.atelier-reel-poster {
+  width: 100%;
+  height: 100%;
+  background:
+    linear-gradient(180deg, rgba(255, 253, 248, 0.08), rgba(0, 0, 0, 0.62)),
+    linear-gradient(135deg, #d9c8b0, #5f4b3d 48%, #17130f);
+}
+
 .atelier-reel::before,
 .atelier-reel::after {
   content: '';

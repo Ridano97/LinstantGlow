@@ -11,8 +11,14 @@ const localBusinessJsonLd = {
   "@context": "https://schema.org",
   "@type": "BeautySalon",
   name: "L'Instant Glow",
-  image: "/images-linstantglow/logocomplet.jpg",
-  url: "https://www.planity.com/linstant-glow-01280-prevessin-moens",
+  image: [
+    "https://instantglow.fr/images-linstantglow/logocomplet.jpg",
+    "https://instantglow.fr/images-linstantglow/devanturesalonnuit.jpg",
+    "https://instantglow.fr/images-linstantglow/canapeaccueil.jpg",
+  ],
+  logo: "https://instantglow.fr/images-linstantglow/logocomplet.jpg",
+  url: "https://instantglow.fr",
+  hasMap: "https://www.google.com/maps/search/?api=1&query=L%27Instant%20Glow%20107%20Rte%20de%20Saint-Genis%2001280%20Pr%C3%A9vessin-Mo%C3%ABns",
   sameAs: [
     "https://www.instagram.com/linstantglow/",
     "https://www.tiktok.com/@linstantglow3",
@@ -29,11 +35,7 @@ const localBusinessJsonLd = {
     addressLocality: "Prévessin-Moëns",
     addressCountry: "FR",
   },
-  aggregateRating: {
-    "@type": "AggregateRating",
-    ratingValue: "5.0",
-    reviewCount: "36",
-  },
+  areaServed: ["Prévessin-Moëns", "Pays de Gex", "Ferney-Voltaire", "Saint-Genis-Pouilly", "Genève"],
   openingHoursSpecification: [
     {
       "@type": "OpeningHoursSpecification",
@@ -42,6 +44,22 @@ const localBusinessJsonLd = {
       closes: "19:00",
     },
   ],
+  potentialAction: {
+    "@type": "ReserveAction",
+    target: {
+      "@type": "EntryPoint",
+      urlTemplate: "https://www.planity.com/linstant-glow-01280-prevessin-moens",
+      inLanguage: "fr-FR",
+      actionPlatform: [
+        "https://schema.org/DesktopWebPlatform",
+        "https://schema.org/MobileWebPlatform",
+      ],
+    },
+    result: {
+      "@type": "Reservation",
+      name: "Réservation L'Instant Glow",
+    },
+  },
   hasOfferCatalog: {
     "@type": "OfferCatalog",
     name: "Prestations L'Instant Glow",

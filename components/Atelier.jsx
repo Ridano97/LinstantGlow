@@ -24,8 +24,8 @@ const atelierPhotos = [
   { src: 'canapeaccueil.jpg', label: "Salon d'accueil", shape: 'tall' },
   { src: 'cartedevisiteinstantglow.jpg', label: 'Carte cadeau Instant Glow', shape: 'wide' },
   { src: '6.jpeg', label: 'Espace beauté', shape: 'wide' },
-  { src: '33.png', label: 'Nail art signature', shape: 'tall' },
-  { src: '35.png', label: 'Noir glossy', shape: 'tall' },
+  { src: '33-optimized.jpg', label: 'Nail art signature', shape: 'tall' },
+  { src: '35-optimized.jpg', label: 'Noir glossy', shape: 'tall' },
   { src: 'cabineuvbleu.jpg', label: 'Cabine UV bleue', shape: 'wide' },
   { src: '17.jpg', label: 'Onlges rose', shape: 'wide' },
   { src: '11.jpeg', label: 'Soins solaires', shape: 'tall' },
@@ -43,6 +43,7 @@ export default function Atelier() {
   const [activeReel, setActiveReel] = useState(0)
   const [activePage, setActivePage] = useState(0)
   const [isMobile, setIsMobile] = useState(false)
+  const [canLoadReels, setCanLoadReels] = useState(false)
 
   useEffect(() => {
     const mq = window.matchMedia('(max-width: 620px)')
@@ -50,6 +51,23 @@ export default function Atelier() {
     update()
     mq.addEventListener?.('change', update)
     return () => mq.removeEventListener?.('change', update)
+  }, [])
+
+  useEffect(() => {
+    const loadReels = () => setCanLoadReels(true)
+    const handleSceneProgress = (event) => {
+      if (typeof event.detail === 'number' && event.detail >= 0.74) {
+        loadReels()
+      }
+    }
+    const fallbackTimer = window.setTimeout(loadReels, 8000)
+
+    window.addEventListener('luxurySceneProgress', handleSceneProgress)
+
+    return () => {
+      window.clearTimeout(fallbackTimer)
+      window.removeEventListener('luxurySceneProgress', handleSceneProgress)
+    }
   }, [])
 
   const goToReel = (index) => {
@@ -107,19 +125,24 @@ export default function Atelier() {
                       className="atelier-reel"
                       aria-hidden={index !== activeReel}
                     >
-                      <iframe
-                        src={reel.src}
-                        title={`Vidéo atelier ${index + 1}`}
-                        allow="autoplay; encrypted-media; picture-in-picture"
-                        allowFullScreen
-                        style={{
-                          width: '100%',
-                          height: '100%',
-                          border: 0,
-                          display: 'block',
-                          pointerEvents: 'none',
-                        }}
-                      />
+                      {canLoadReels ? (
+                        <iframe
+                          src={reel.src}
+                          title={`Vidéo atelier ${index + 1}`}
+                          allow="autoplay; encrypted-media; picture-in-picture"
+                          allowFullScreen
+                          loading="lazy"
+                          style={{
+                            width: '100%',
+                            height: '100%',
+                            border: 0,
+                            display: 'block',
+                            pointerEvents: 'none',
+                          }}
+                        />
+                      ) : (
+                        <div className="atelier-reel-poster" aria-hidden="true" />
+                      )}
 
                       <figcaption>
                         <span>Reels</span>
