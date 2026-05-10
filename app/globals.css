@@ -341,4 +341,10 @@ main {
     max-height: 100%;
     overflow: hidden;
   }
+
+  .scene-panel > .slogan {
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    -webkit-overflow-scrolling: touch;
+  }
 }

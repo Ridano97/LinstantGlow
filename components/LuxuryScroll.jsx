@@ -76,7 +76,7 @@ export default function LuxuryScroll() {
     }
 
     const isInsideServiceModal = (target) => target.closest?.('.service-modal, .service-modal-backdrop')
-    const isInsideScrollableZone = (target) => target.closest?.('.services-grid, .atelier-phone-carousel, .atelier-reels-track, .atelier-mobile-track, .footer-glow-card')
+    const isInsideScrollableZone = (target) => target.closest?.('.services-grid, .atelier-phone-carousel, .atelier-reels-track, .atelier-mobile-track, .slogan')
 
     const goToScene = (nextScene) => {
       const targetScene = clamp(nextScene, 0, panels.length - 1)

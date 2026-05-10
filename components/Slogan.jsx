@@ -1,5 +1,7 @@
 'use client'
 
+import { useEffect, useState } from 'react'
+import Image from 'next/image'
 import { motion } from 'framer-motion'
 
 const hours = [
@@ -16,6 +18,7 @@ const googleReviews = [
   {
     author: 'Musso Annie',
     initial: 'M',
+    source: 'Google',
     accent: 'linear-gradient(135deg, #b89dd6, #8a6fb3)',
     badge: '8 avis · 6 photos',
     date: 'il y a 2 mois',
@@ -25,11 +28,32 @@ const googleReviews = [
   {
     author: 'Idilia Benboudjema',
     initial: 'I',
+    source: 'Google',
     accent: 'linear-gradient(135deg, #f0a981, #c97a52)',
     badge: 'Local Guide · 12 avis',
     date: 'il y a 6 mois',
     text:
       "J'ai découvert ce salon le lendemain de son ouverture, quelle belle surprise ! Des filles aussi belles qu'agréables, un accueil au top dans un lieu canon.",
+  },
+  {
+    author: 'pamart pauline',
+    initial: 'P',
+    source: 'Google',
+    accent: 'linear-gradient(135deg, #9d5fc0, #74449b)',
+    badge: '9 avis · 4 photos',
+    date: 'il y a 3 mois',
+    text:
+      "Je suis allée pour la première fois dans cet institut afin de faire mes ongles et j'ai été ravie de mon expérience. La décoration est soignée, réalisée avec beaucoup de goût, et on s'y sent directement à l'aise.",
+  },
+  {
+    author: 'Soumia kouider',
+    initial: 'S',
+    source: 'Google',
+    accent: 'linear-gradient(135deg, #1d1d1d, #000)',
+    badge: '4 avis',
+    date: 'il y a 6 mois',
+    text:
+      "J'ai passé un excellent moment à l'Institut L'Instant Glow ! L'accueil est chaleureux, l'ambiance apaisante et le professionnalisme se ressent à chaque étape.",
   },
 ]
 
@@ -86,6 +110,20 @@ function SnapchatIcon() {
 }
 
 export default function Slogan() {
+  const [activeReview, setActiveReview] = useState(0)
+  const visibleReviews = [
+    googleReviews[activeReview],
+    googleReviews[(activeReview + 1) % googleReviews.length],
+  ]
+
+  useEffect(() => {
+    const timer = window.setInterval(() => {
+      setActiveReview((currentReview) => (currentReview + 1) % googleReviews.length)
+    }, 5200)
+
+    return () => window.clearInterval(timer)
+  }, [])
+
   return (
     <footer className="slogan">
       <div className="slogan-inner">
@@ -97,130 +135,213 @@ export default function Slogan() {
           viewport={{ once: true }}
         >
           <p className="section-kicker">Contact</p>
+
           <span className="slogan-line1">Votre éclat,</span>
           <span className="slogan-line2">notre signature</span>
-          <p className="slogan-copy">Réservez votre soin en ligne ou retrouvez l&apos;institut à Prévessin-Moëns pour un moment beauté précis, doux et lumineux.</p>
+
+          <p className="slogan-copy">
+            Réservez votre soin en ligne ou retrouvez l&apos;institut à
+            Prévessin-Moëns pour un moment beauté précis, doux et lumineux.
+          </p>
+
+          <div className="slogan-full-logo">
+            <Image
+              src="/images-linstantglow/logocomplet.jpg"
+              alt="L'Instant Glow"
+              width={520}
+              height={260}
+              priority
+            />
+          </div>
         </motion.div>
 
-        <motion.aside
-          className="slogan-reviews"
-          initial={{ opacity: 0, y: 28 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.95, ease: 'easeOut', delay: 0.12 }}
-          viewport={{ once: true }}
-          aria-label="Avis Google L'Instant Glow"
-        >
-          <div className="slogan-reviews-header">
-            <div className="slogan-reviews-brand">
-              <GoogleLogo />
-              <span>Avis Google</span>
-            </div>
-            <div className="slogan-reviews-rating">
-              <strong>4,9</strong>
-              <div className="slogan-reviews-stars" aria-hidden="true">
-                <StarIcon size={15} />
-                <StarIcon size={15} />
-                <StarIcon size={15} />
-                <StarIcon size={15} />
-                <StarIcon size={15} />
-              </div>
-              <span>35 avis vérifiés</span>
-            </div>
-          </div>
-
-          <ul className="slogan-reviews-list">
-            {googleReviews.map((review) => (
-              <li className="slogan-review-card" key={review.author}>
-                <div className="slogan-review-head">
-                  <span
-                    className="slogan-review-avatar"
-                    style={{ background: review.accent }}
-                    aria-hidden="true"
-                  >
-                    {review.initial}
-                  </span>
-                  <div className="slogan-review-meta">
-                    <strong>{review.author}</strong>
-                    <small>{review.badge}</small>
-                  </div>
-                  <div className="slogan-review-stars" aria-hidden="true">
-                    <StarIcon size={11} />
-                    <StarIcon size={11} />
-                    <StarIcon size={11} />
-                    <StarIcon size={11} />
-                    <StarIcon size={11} />
-                  </div>
-                </div>
-                <p>{review.text}</p>
-                <span className="slogan-review-date">{review.date}</span>
-              </li>
-            ))}
-          </ul>
-
-          <a
-            className="slogan-reviews-link"
-            href={REVIEWS_LINK}
-            target="_blank"
-            rel="noreferrer"
+        <div className="slogan-right">
+          <motion.div
+            className="slogan-mobile-track"
+            animate={{ x: '0%' }}
+            transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
           >
-            Voir tous les avis sur Google
-            <svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true">
-              <path
-                d="M5 12h13m-5-5 5 5-5 5"
-                stroke="currentColor"
-                strokeWidth="1.8"
-                fill="none"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-            </svg>
-          </a>
-        </motion.aside>
+            <motion.aside
+              className="slogan-reviews"
+              initial={{ opacity: 0, y: 28 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.95, ease: 'easeOut', delay: 0.12 }}
+              viewport={{ once: true }}
+              aria-label="Avis Google L'Instant Glow"
+            >
+              <div className="slogan-reviews-header">
+                <div className="slogan-reviews-brand">
+                  <GoogleLogo />
+                  <span>Avis Google</span>
+                </div>
+
+                <div className="slogan-reviews-rating">
+                  <strong>4,9</strong>
+                  <div className="slogan-reviews-stars" aria-hidden="true">
+                    <StarIcon size={15} />
+                    <StarIcon size={15} />
+                    <StarIcon size={15} />
+                    <StarIcon size={15} />
+                    <StarIcon size={15} />
+                  </div>
+                  <span>35 avis vérifiés</span>
+                </div>
+              </div>
+
+              <ul className="slogan-reviews-list">
+                {visibleReviews.map((review, index) => (
+                  <motion.li
+                    className="slogan-review-card"
+                    key={`${activeReview}-${review.author}`}
+                    initial={{ opacity: 0, y: 12 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1], delay: index * 0.08 }}
+                  >
+                    <div className="slogan-review-head">
+                      <span
+                        className="slogan-review-avatar"
+                        style={{ background: review.accent }}
+                        aria-hidden="true"
+                      >
+                        {review.initial}
+                      </span>
+
+                      <div className="slogan-review-meta">
+                        <strong>{review.author}</strong>
+                        <small>{review.source} · {review.badge}</small>
+                      </div>
+
+                      <div className="slogan-review-stars" aria-hidden="true">
+                        <StarIcon size={11} />
+                        <StarIcon size={11} />
+                        <StarIcon size={11} />
+                        <StarIcon size={11} />
+                        <StarIcon size={11} />
+                      </div>
+                    </div>
+
+                    <p>{review.text}</p>
+                    <span className="slogan-review-date">{review.date}</span>
+                  </motion.li>
+                ))}
+              </ul>
+
+              <a
+                className="slogan-reviews-link"
+                href={REVIEWS_LINK}
+                target="_blank"
+                rel="noreferrer"
+              >
+                Voir tous les avis sur Google
+                <svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true">
+                  <path
+                    d="M5 12h13m-5-5 5 5-5 5"
+                    stroke="currentColor"
+                    strokeWidth="1.8"
+                    fill="none"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>
+              </a>
+            </motion.aside>
+
+            <motion.div
+              className="footer-glow-card"
+              initial={{ opacity: 0, y: 28 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.85, delay: 0.12, ease: 'easeOut' }}
+              viewport={{ once: true }}
+            >
+              <div className="footer-glow-column">
+                <h3>Adresse</h3>
+                <p>
+                  107 Rte de Saint-Genis
+                  <br />
+                  01280 Prévessin-Moëns
+                  <br />
+                  France
+                </p>
+
+                <a
+                  href="https://www.google.com/maps/search/?api=1&query=L%27Instant%20Glow%20107%20Rte%20de%20Saint-Genis%2001280%20Pr%C3%A9vessin-Mo%C3%ABns"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  Voir l&apos;itinéraire
+                </a>
+              </div>
+
+              <div className="footer-glow-column">
+                <h3>Contact</h3>
+
+                <p>
+                  <a href="tel:+33328554433">0328554433</a>
+                  <br />
+                  <a href="mailto:contact@instantglow.fr">
+                    contact@instantglow.fr
+                  </a>
+                </p>
+
+                <div className="footer-glow-socials">
+                  <a
+                    className="instagram-button"
+                    href="https://www.instagram.com/linstantglow/"
+                    target="_blank"
+                    rel="noreferrer"
+                    aria-label="Instagram L'Instant Glow"
+                  >
+                    <InstagramIcon />
+                    <span className="sr-only">Instagram</span>
+                  </a>
+
+                  <a
+                    className="tiktok-button"
+                    href="https://www.tiktok.com/@linstantglow3"
+                    target="_blank"
+                    rel="noreferrer"
+                    aria-label="TikTok L'Instant Glow"
+                  >
+                    <TiktokIcon />
+                    <span className="sr-only">TikTok</span>
+                  </a>
+
+                  <a
+                    className="snapchat-button"
+                    href="https://www.snapchat.com/add/Linstant.glow"
+                    target="_blank"
+                    rel="noreferrer"
+                    aria-label="Snapchat L'Instant Glow"
+                  >
+                    <SnapchatIcon />
+                    <span className="sr-only">Snapchat Linstant.glow</span>
+                  </a>
+
+                  <a
+                    href="https://www.planity.com/linstant-glow-01280-prevessin-moens"
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    Planity
+                  </a>
+                </div>
+              </div>
+
+              <div className="footer-glow-column footer-glow-hours">
+                <h3>Horaires</h3>
+
+                {hours.map(([day, time]) => (
+                  <div className="footer-hour-row" key={day}>
+                    <span>{day}</span>
+                    <strong>{time}</strong>
+                  </div>
+                ))}
+              </div>
+            </motion.div>
+          </motion.div>
+
+        </div>
       </div>
-
-      <motion.div
-        className="footer-glow-card"
-        initial={{ opacity: 0, y: 28 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.85, delay: 0.12, ease: 'easeOut' }}
-        viewport={{ once: true }}
-      >
-        <div className="footer-glow-column">
-          <h3>Adresse</h3>
-          <p>107 Rte de Saint-Genis<br />01280 Prévessin-Moëns<br />France</p>
-          <a href="https://www.google.com/maps/search/?api=1&query=L%27Instant%20Glow%20107%20Rte%20de%20Saint-Genis%2001280%20Pr%C3%A9vessin-Mo%C3%ABns" target="_blank" rel="noreferrer">Voir l&apos;itinéraire</a>
-        </div>
-
-        <div className="footer-glow-column">
-          <h3>Contact</h3>
-          <p><a href="tel:+33328554433">0328554433</a><br /><a href="mailto:contact@instantglow.fr">contact@instantglow.fr</a></p>
-          <div className="footer-glow-socials">
-            <a className="instagram-button" href="https://www.instagram.com/linstantglow/" target="_blank" rel="noreferrer" aria-label="Instagram L'Instant Glow">
-              <InstagramIcon />
-              <span className="sr-only">Instagram</span>
-            </a>
-            <a className="tiktok-button" href="https://www.tiktok.com/@linstantglow3" target="_blank" rel="noreferrer" aria-label="TikTok L'Instant Glow">
-              <TiktokIcon />
-              <span className="sr-only">TikTok</span>
-            </a>
-            <a className="snapchat-button" href="https://www.snapchat.com/add/Linstant.glow" target="_blank" rel="noreferrer" aria-label="Snapchat L'Instant Glow">
-              <SnapchatIcon />
-              <span className="sr-only">Snapchat Linstant.glow</span>
-            </a>
-            <a href="https://www.planity.com/linstant-glow-01280-prevessin-moens" target="_blank" rel="noreferrer">Planity</a>
-          </div>
-        </div>
-
-        <div className="footer-glow-column footer-glow-hours">
-          <h3>Horaires</h3>
-          {hours.map(([day, time]) => (
-            <div className="footer-hour-row" key={day}>
-              <span>{day}</span>
-              <strong>{time}</strong>
-            </div>
-          ))}
-        </div>
-      </motion.div>
     </footer>
   )
 }
