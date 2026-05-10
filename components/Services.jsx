@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from 'react'
 import Image from 'next/image'
+import { createPortal } from 'react-dom'
 import { motion, AnimatePresence, useInView } from 'framer-motion'
 
 function AutoImageCarousel({ images, alt, sizes, isActive = true }) {
@@ -199,10 +200,84 @@ const services = [
 
 export default function Services() {
   const [activeService, setActiveService] = useState(null)
+  const [mounted, setMounted] = useState(false)
+
+  useEffect(() => {
+    setMounted(true)
+  }, [])
+
+  useEffect(() => {
+    if (!activeService) return undefined
+
+    const handleKeyDown = (event) => {
+      if (event.key === 'Escape') closeService()
+    }
+
+    document.body.classList.add('service-modal-open')
+    window.addEventListener('keydown', handleKeyDown)
+
+    return () => {
+      document.body.classList.remove('service-modal-open')
+      window.removeEventListener('keydown', handleKeyDown)
+    }
+  }, [activeService])
 
   const openService = (service) => setActiveService(service)
 
   const closeService = () => setActiveService(null)
+
+  const serviceModal = (
+    <AnimatePresence>
+      {activeService && (
+        <motion.div
+          className="service-modal-backdrop"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          onClick={closeService}
+        >
+          <motion.div
+            className="service-modal"
+            role="dialog"
+            aria-modal="true"
+            aria-label={`Prestations ${activeService.title}`}
+            initial={{ opacity: 0, y: 36, scale: 0.98 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: 36, scale: 0.98 }}
+            transition={{ duration: 0.35, ease: 'easeOut' }}
+            onClick={(event) => event.stopPropagation()}
+          >
+            <button className="service-modal-close" type="button" onClick={closeService} aria-label="Fermer les prestations">
+              <span aria-hidden="true">×</span>
+            </button>
+
+            <div className="service-modal-media">
+              <ServiceImage service={activeService} sizes="(max-width: 900px) 100vw, 42vw" />
+              <div className="service-modal-media-overlay" />
+            </div>
+
+            <div className="service-modal-prices">
+              <h3>{activeService.title}</h3>
+              {activeService.sections.map((section) => (
+                <div className="service-price-section" key={section.title}>
+                  <h4>{section.title}</h4>
+                  <div className="service-price-list">
+                    {section.rows.map(([name, price]) => (
+                      <div className="service-price-row" key={name}>
+                        <span>{name}</span>
+                        <strong>{price}</strong>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              ))}
+              <a className="service-modal-planity" href="https://www.planity.com/linstant-glow-01280-prevessin-moens" target="_blank" rel="noreferrer">Réserver sur Planity</a>
+            </div>
+          </motion.div>
+        </motion.div>
+      )}
+    </AnimatePresence>
+  )
 
   return (
     <section className="services">
@@ -239,52 +314,7 @@ export default function Services() {
         ))}
       </div>
 
-      <AnimatePresence>
-        {activeService && (
-          <motion.div
-            className="service-modal-backdrop"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-          >
-            <motion.div
-              className="service-modal"
-              role="dialog"
-              aria-modal="true"
-              aria-label={`Prestations ${activeService.title}`}
-              initial={{ opacity: 0, y: 36, scale: 0.98 }}
-              animate={{ opacity: 1, y: 0, scale: 1 }}
-              exit={{ opacity: 0, y: 36, scale: 0.98 }}
-              transition={{ duration: 0.35, ease: 'easeOut' }}
-            >
-              <button className="service-modal-close" type="button" onClick={closeService} aria-label="Fermer les prestations">×</button>
-
-              <div className="service-modal-media">
-                <ServiceImage service={activeService} sizes="(max-width: 900px) 100vw, 42vw" />
-                <div className="service-modal-media-overlay" />
-              </div>
-
-              <div className="service-modal-prices">
-                <h3>{activeService.title}</h3>
-                {activeService.sections.map((section) => (
-                  <div className="service-price-section" key={section.title}>
-                    <h4>{section.title}</h4>
-                    <div className="service-price-list">
-                      {section.rows.map(([name, price]) => (
-                        <div className="service-price-row" key={name}>
-                          <span>{name}</span>
-                          <strong>{price}</strong>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                ))}
-                <a className="service-modal-planity" href="https://www.planity.com/linstant-glow-01280-prevessin-moens" target="_blank" rel="noreferrer">Réserver sur Planity</a>
-              </div>
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+      {mounted ? createPortal(serviceModal, document.body) : null}
     </section>
   )
 }

@@ -29,9 +29,8 @@ const setPanelVector = (panel, prefix, vector) => {
 export default function LuxuryScroll() {
   useEffect(() => {
     const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
-    const desktop = window.matchMedia('(min-width: 901px)').matches
 
-    if (reduceMotion || !desktop) return undefined
+    if (reduceMotion) return undefined
 
     const panels = Array.from(document.querySelectorAll('.scene-panel'))
     const html = document.documentElement
@@ -76,7 +75,8 @@ export default function LuxuryScroll() {
       dispatchProgress()
     }
 
-    const isInsideServiceModal = (target) => target.closest?.('.service-modal')
+    const isInsideServiceModal = (target) => target.closest?.('.service-modal, .service-modal-backdrop')
+    const isInsideScrollableZone = (target) => target.closest?.('.services-grid, .atelier-phone-carousel, .atelier-reels-track, .atelier-mobile-track, .footer-glow-card')
 
     const goToScene = (nextScene) => {
       const targetScene = clamp(nextScene, 0, panels.length - 1)
@@ -136,19 +136,19 @@ export default function LuxuryScroll() {
     }
 
     const handleTouchStart = (event) => {
-      if (isInsideServiceModal(event.target)) return
+      if (isInsideServiceModal(event.target) || isInsideScrollableZone(event.target)) return
 
       touchStartY = event.touches[0]?.clientY ?? 0
     }
 
     const handleTouchMove = (event) => {
-      if (isInsideServiceModal(event.target)) return
+      if (isInsideServiceModal(event.target) || isInsideScrollableZone(event.target)) return
 
       event.preventDefault()
     }
 
     const handleTouchEnd = (event) => {
-      if (isInsideServiceModal(event.target)) return
+      if (isInsideServiceModal(event.target) || isInsideScrollableZone(event.target)) return
 
       const touchEndY = event.changedTouches[0]?.clientY ?? touchStartY
       const distance = touchStartY - touchEndY

@@ -66,14 +66,17 @@ export default function Hero() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 1, delay: 1 }}
+          aria-label="Prestations signatures"
         >
-          <span>Extensions de cils</span>
-          <span>Brow lift</span>
-          <span>Soin visage</span>
-          <span>Blanchiment dentaire</span>
-          <span>Corps & Soleil UV</span>
-          <span>Beauté des mains & pieds</span>
-         
+          <span className="hero-signature-label">Soins signature</span>
+          <div className="hero-signature-list">
+            <span>Extensions de cils</span>
+            <span>Brow lift</span>
+            <span>Soin visage</span>
+            <span>Blanchiment dentaire</span>
+            <span>Corps & Soleil UV</span>
+            <span>Beauté des mains & pieds</span>
+          </div>
         </motion.div>
       </div>
 

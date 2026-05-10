@@ -16,6 +16,7 @@ const localBusinessJsonLd = {
   sameAs: [
     "https://www.instagram.com/linstantglow/",
     "https://www.tiktok.com/@linstantglow3",
+    "https://www.snapchat.com/add/Linstant.glow",
     "https://www.planity.com/linstant-glow-01280-prevessin-moens",
   ],
   telephone: "+33328554433",

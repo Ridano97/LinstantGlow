@@ -1,6 +1,5 @@
 'use client'
 
-import Image from 'next/image'
 import { motion } from 'framer-motion'
 
 const hours = [
@@ -12,6 +11,52 @@ const hours = [
   ['Samedi', '10:00 - 19:00'],
   ['Dimanche', '10:00 - 19:00'],
 ]
+
+const googleReviews = [
+  {
+    author: 'Musso Annie',
+    initial: 'M',
+    accent: 'linear-gradient(135deg, #b89dd6, #8a6fb3)',
+    badge: '8 avis · 6 photos',
+    date: 'il y a 2 mois',
+    text:
+      "Un vrai coup de cœur pour ce salon ! Les filles que j'ai rencontrées sont adorables : souriantes, accueillantes et très professionnelles. On se sent tout de suite à l'aise.",
+  },
+  {
+    author: 'Idilia Benboudjema',
+    initial: 'I',
+    accent: 'linear-gradient(135deg, #f0a981, #c97a52)',
+    badge: 'Local Guide · 12 avis',
+    date: 'il y a 6 mois',
+    text:
+      "J'ai découvert ce salon le lendemain de son ouverture, quelle belle surprise ! Des filles aussi belles qu'agréables, un accueil au top dans un lieu canon.",
+  },
+]
+
+const REVIEWS_LINK =
+  'https://www.google.com/search?q=L%27instant+Glow+Avis&stick=H4sIAAAAAAAAAONgkxI2NDYwMzc0MzA0MDExtDAyN7E038DI-IpR2Ec9M6-4JDGvRME9J79cwbEss3gRKzZRAOuVqXdGAAAA'
+
+function GoogleLogo() {
+  return (
+    <svg className="google-logo" viewBox="0 0 48 48" aria-hidden="true">
+      <path fill="#FFC107" d="M43.6 20.5H42V20H24v8h11.3c-1.6 4.7-6.1 8-11.3 8-6.6 0-12-5.4-12-12s5.4-12 12-12c3 0 5.8 1.1 7.9 3l5.7-5.7C34.1 6.1 29.3 4 24 4 12.95 4 4 12.95 4 24s8.95 20 20 20 20-8.95 20-20c0-1.34-.14-2.65-.4-3.5Z" />
+      <path fill="#FF3D00" d="m6.3 14.7 6.55 4.8C14.7 16 19 13 24 13c3 0 5.8 1.1 7.9 3l5.7-5.7C34.1 6.1 29.3 4 24 4 16.3 4 9.7 8.3 6.3 14.7Z" />
+      <path fill="#4CAF50" d="M24 44c5.2 0 9.95-2 13.5-5.2l-6.2-5.25C29.3 35 26.8 36 24 36c-5.2 0-9.6-3.3-11.3-8L6.2 32.7C9.6 39.3 16.2 44 24 44Z" />
+      <path fill="#1976D2" d="M43.6 20.5H42V20H24v8h11.3c-.8 2.3-2.3 4.3-4.3 5.55l6.2 5.25C39.4 36.45 44 31 44 24c0-1.34-.14-2.65-.4-3.5Z" />
+    </svg>
+  )
+}
+
+function StarIcon({ size = 14 }) {
+  return (
+    <svg viewBox="0 0 24 24" width={size} height={size} aria-hidden="true">
+      <path
+        fill="#f5b740"
+        d="M12 2.6 14.94 8.7l6.74.98-4.88 4.74 1.15 6.71L12 17.96l-6.04 3.17 1.15-6.71L2.32 9.68l6.74-.98L12 2.6Z"
+      />
+    </svg>
+  )
+}
 
 function InstagramIcon() {
   return (
@@ -32,26 +77,18 @@ function TiktokIcon() {
   )
 }
 
+function SnapchatIcon() {
+  return (
+    <svg className="snapchat-icon" viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M12 3.35c2.85 0 4.6 2.25 4.6 5.05v2.05c0 .45.28.76.72.9l1.08.34c.34.1.56.34.56.68 0 .42-.34.68-.78.82l-1.18.38c.08.48.52 1.38 2.08 2.06.42.18.62.5.54.86-.08.38-.42.62-.9.66-.42.04-.78.12-1.08.26-.34.16-.52.4-.76.74-.28.4-.64.9-1.36.9-.36 0-.78-.1-1.3-.26-.44-.14-.8-.22-1.16-.22s-.74.08-1.18.22c-.52.16-.94.26-1.3.26-.72 0-1.08-.5-1.36-.9-.24-.34-.42-.58-.76-.74-.3-.14-.66-.22-1.08-.26-.48-.04-.82-.28-.9-.66-.08-.36.12-.68.54-.86 1.56-.68 2-1.58 2.08-2.06l-1.18-.38c-.44-.14-.78-.4-.78-.82 0-.34.22-.58.56-.68l1.08-.34c.44-.14.72-.45.72-.9V8.4c0-2.8 1.75-5.05 4.6-5.05Z" />
+    </svg>
+  )
+}
+
 export default function Slogan() {
   return (
     <footer className="slogan">
       <div className="slogan-inner">
-        <motion.div
-          className="slogan-media"
-          initial={{ opacity: 0, scale: 0.96 }}
-          whileInView={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.9, ease: 'easeOut' }}
-          viewport={{ once: true }}
-        >
-          <Image
-            src="/images-linstantglow/logocomplet.jpg"
-            alt="Logo L'Instant Glow"
-            fill
-            sizes="360px"
-            style={{ objectFit: 'cover' }}
-          />
-        </motion.div>
-
         <motion.div
           className="slogan-text"
           initial={{ opacity: 0, y: 30 }}
@@ -64,6 +101,81 @@ export default function Slogan() {
           <span className="slogan-line2">notre signature</span>
           <p className="slogan-copy">Réservez votre soin en ligne ou retrouvez l&apos;institut à Prévessin-Moëns pour un moment beauté précis, doux et lumineux.</p>
         </motion.div>
+
+        <motion.aside
+          className="slogan-reviews"
+          initial={{ opacity: 0, y: 28 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.95, ease: 'easeOut', delay: 0.12 }}
+          viewport={{ once: true }}
+          aria-label="Avis Google L'Instant Glow"
+        >
+          <div className="slogan-reviews-header">
+            <div className="slogan-reviews-brand">
+              <GoogleLogo />
+              <span>Avis Google</span>
+            </div>
+            <div className="slogan-reviews-rating">
+              <strong>4,9</strong>
+              <div className="slogan-reviews-stars" aria-hidden="true">
+                <StarIcon size={15} />
+                <StarIcon size={15} />
+                <StarIcon size={15} />
+                <StarIcon size={15} />
+                <StarIcon size={15} />
+              </div>
+              <span>35 avis vérifiés</span>
+            </div>
+          </div>
+
+          <ul className="slogan-reviews-list">
+            {googleReviews.map((review) => (
+              <li className="slogan-review-card" key={review.author}>
+                <div className="slogan-review-head">
+                  <span
+                    className="slogan-review-avatar"
+                    style={{ background: review.accent }}
+                    aria-hidden="true"
+                  >
+                    {review.initial}
+                  </span>
+                  <div className="slogan-review-meta">
+                    <strong>{review.author}</strong>
+                    <small>{review.badge}</small>
+                  </div>
+                  <div className="slogan-review-stars" aria-hidden="true">
+                    <StarIcon size={11} />
+                    <StarIcon size={11} />
+                    <StarIcon size={11} />
+                    <StarIcon size={11} />
+                    <StarIcon size={11} />
+                  </div>
+                </div>
+                <p>{review.text}</p>
+                <span className="slogan-review-date">{review.date}</span>
+              </li>
+            ))}
+          </ul>
+
+          <a
+            className="slogan-reviews-link"
+            href={REVIEWS_LINK}
+            target="_blank"
+            rel="noreferrer"
+          >
+            Voir tous les avis sur Google
+            <svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true">
+              <path
+                d="M5 12h13m-5-5 5 5-5 5"
+                stroke="currentColor"
+                strokeWidth="1.8"
+                fill="none"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            </svg>
+          </a>
+        </motion.aside>
       </div>
 
       <motion.div
@@ -90,6 +202,10 @@ export default function Slogan() {
             <a className="tiktok-button" href="https://www.tiktok.com/@linstantglow3" target="_blank" rel="noreferrer" aria-label="TikTok L'Instant Glow">
               <TiktokIcon />
               <span className="sr-only">TikTok</span>
+            </a>
+            <a className="snapchat-button" href="https://www.snapchat.com/add/Linstant.glow" target="_blank" rel="noreferrer" aria-label="Snapchat L'Instant Glow">
+              <SnapchatIcon />
+              <span className="sr-only">Snapchat Linstant.glow</span>
             </a>
             <a href="https://www.planity.com/linstant-glow-01280-prevessin-moens" target="_blank" rel="noreferrer">Planity</a>
           </div>

@@ -44,7 +44,7 @@ export default function About() {
       >
         <p className="section-kicker">Le salon</p>
         <h2 className="about-title">Une parenthèse beauté pensée comme un moment privé.</h2>
-        <p>Chez L&apos;Instant Glow, la beauté n&apos;est pas une routine, c&apos;est un moment rien que pour vous. Niché au cœur de Prévessin-Moëns, notre institut réunit une équipe de passionnées, Siham, Sefora et Lilou, qui mettent leur expertise au service de votre éclat.</p>
+        <p>Chez L&apos;Instant Glow, la beauté n&apos;est pas une routine, c&apos;est un moment rien que pour vous. Niché au cœur de Prévessin-Moëns, notre institut réunit une équipe de passionnées, Siham, Sana et Lilou, qui mettent leur expertise au service de votre éclat.</p>
         <p>De l&apos;extension de cils au brow lift, du spray tan, chaque soin est pensé avec précision et bienveillance.</p>
         <p>Ici, vous n&apos;êtes pas un rendez-vous de plus : vous êtes notre priorité.</p>
         <div className="about-metrics">

@@ -207,11 +207,11 @@
   align-items: center;
   min-height: 2.35rem;
   margin-top: 0.35rem;
-  padding: 0 0.9rem;
+  padding: 0 0.95rem;
   border: 1px solid rgba(255, 255, 255, 0.28);
   border-radius: 999px;
   color: rgba(255, 255, 255, 0.9);
-  font-size: 0.66rem;
+  font-size: 0.78rem;
   font-weight: 800;
   letter-spacing: 0.14em;
   text-transform: uppercase;
@@ -220,12 +220,16 @@
 .service-modal-backdrop {
   position: fixed;
   inset: 0;
-  z-index: 200;
+  z-index: 1000;
   display: grid;
   place-items: center;
   padding: 1rem;
   background: rgba(23, 20, 17, 0.58);
   backdrop-filter: blur(8px);
+}
+
+body.service-modal-open {
+  overflow: hidden;
 }
 
 .service-modal {
@@ -245,16 +249,28 @@
   top: 1rem;
   right: 1rem;
   z-index: 5;
-  width: 2.4rem;
-  height: 2.4rem;
   display: grid;
   place-items: center;
-  border: 0;
+  width: 2.9rem;
+  height: 2.9rem;
+  padding: 0;
+  border: 1px solid rgba(255, 244, 220, 0.2);
   border-radius: 50%;
-  background: rgba(255, 255, 255, 0.78);
-  color: #111;
+  background: linear-gradient(135deg, rgba(23, 20, 17, 0.96), rgba(119, 90, 68, 0.94));
+  color: #fffdf8;
   cursor: pointer;
-  font-size: 2rem;
+  box-shadow: 0 16px 40px rgba(23, 20, 17, 0.24);
+}
+
+.service-modal-close span {
+  display: grid;
+  place-items: center;
+  width: 2.05rem;
+  height: 2.05rem;
+  border-radius: 50%;
+  background: rgba(255, 250, 241, 0.16);
+  font-size: 1.45rem;
+  font-weight: 300;
   line-height: 1;
 }
 
@@ -372,21 +388,70 @@
 
 @media (max-width: 900px) {
   .services {
-    padding: 4.5rem 1rem;
+    display: grid;
+    align-content: center;
+    padding: 5.1rem 0 1.15rem;
+    overflow: hidden;
   }
 
   .services-heading {
     grid-template-columns: 1fr;
+    gap: 0.7rem;
+    margin: 0;
+    padding: 0 1rem 0.95rem;
+  }
+
+  .services-title {
+    font-size: clamp(2rem, 10.5vw, 3.15rem);
+    line-height: 0.98;
+  }
+
+  .services-intro {
+    font-size: 1rem;
+    line-height: 1.55;
+    margin: 0;
   }
 
   .services-grid {
-    grid-template-columns: 1fr;
+    display: flex;
+    gap: 0.75rem;
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    scroll-snap-type: x mandatory;
+    padding: 0 1rem 0.4rem;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+
+  .services-grid::-webkit-scrollbar {
+    display: none;
   }
 
   .services-card,
   .services-card:nth-child(2) {
-    min-height: 27rem;
+    flex: 0 0 min(82vw, 22rem);
+    min-height: min(48dvh, 26rem);
     margin-top: 0;
+    scroll-snap-align: center;
+  }
+
+  .services-card-info {
+    gap: 0.55rem;
+    padding: 1rem;
+  }
+
+  .services-card-title {
+    font-size: clamp(1.65rem, 8vw, 2.2rem);
+  }
+
+  .services-card-text {
+    font-size: 0.96rem;
+    line-height: 1.45;
+  }
+
+  .services-card-arrow {
+    min-height: 2.2rem;
+    font-size: 0.74rem;
   }
 }
 
@@ -428,6 +493,16 @@
 
   .service-modal-media {
     min-height: 13.5rem;
+  }
+
+  .service-modal-close {
+    position: fixed;
+    top: max(0.75rem, env(safe-area-inset-top));
+    right: 0.75rem;
+    width: 3rem;
+    height: 3rem;
+    background: linear-gradient(135deg, rgba(23, 20, 17, 0.98), rgba(119, 90, 68, 0.96));
+    box-shadow: 0 14px 36px rgba(23, 20, 17, 0.26);
   }
 
   .service-price-section {

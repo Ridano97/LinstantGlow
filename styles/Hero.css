@@ -57,7 +57,7 @@
 .hero-content {
   position: relative;
   z-index: 3;
-  width: min(78rem, 100%);
+  width: min(92rem, 100%);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -68,7 +68,7 @@
 .hero-eyebrow {
   margin: 0 0 1rem;
   color: var(--sage);
-  font-size: 0.74rem;
+  font-size: 0.86rem;
   font-weight: 800;
   letter-spacing: 0.18em;
   text-transform: uppercase;
@@ -83,11 +83,11 @@
 
 .hero-title-logo-wrap {
   align-items: center;
-  margin: 0 0 1.75rem;
+  margin: 0 0 clamp(1.6rem, 2.5vw, 2.45rem);
 }
 
 .hero-title-logo {
-  width: clamp(25rem, 66vw, 64rem);
+  width: clamp(34rem, 76vw, 82rem);
   max-width: 100%;
   height: auto;
   display: block;
@@ -125,11 +125,12 @@
 }
 
 .hero-subtitle {
-  width: min(44rem, 100%);
-  margin: 0 0 2.1rem;
+  width: min(54rem, 100%);
+  margin: 0 0 clamp(2rem, 3vw, 3rem);
   color: var(--soft-ink);
-  font-size: clamp(1rem, 1.6vw, 1.25rem);
-  line-height: 1.8;
+  font-size: clamp(1.08rem, 1.55vw, 1.42rem);
+  line-height: 1.72;
+  text-wrap: balance;
 }
 
 .hero-actions {
@@ -137,7 +138,7 @@
   align-items: center;
   justify-content: center;
   flex-wrap: wrap;
-  gap: 0.85rem;
+  gap: 1rem;
 }
 
 .hero-btn,
@@ -145,12 +146,12 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  min-height: 3.45rem;
-  padding: 0 1.65rem;
+  min-height: 3.7rem;
+  padding: 0 1.95rem;
   text-decoration: none;
-  font-size: 0.72rem;
+  font-size: 0.88rem;
   font-weight: 850;
-  letter-spacing: 0.14em;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
   border-radius: 999px;
   transition: transform 0.35s ease, background 0.35s ease, color 0.35s ease, border-color 0.35s ease;
@@ -185,48 +186,152 @@
 }
 
 .hero-signature {
+  width: min(74rem, 100%);
+  display: grid;
+  gap: 1.15rem;
+  margin-top: clamp(2.4rem, 4vw, 3.8rem);
+  padding-top: clamp(1.15rem, 2vw, 1.55rem);
+  border-top: 1px solid rgba(119, 90, 68, 0.18);
+}
+
+.hero-signature-label {
+  justify-self: center;
+  color: rgba(85, 70, 59, 0.76);
+  font-size: clamp(0.8rem, 1vw, 0.96rem);
+  font-weight: 850;
+  letter-spacing: 0.22em;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.hero-signature-list {
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
-  gap: 0.65rem;
-  margin-top: 2.3rem;
+  gap: 0.7rem;
 }
 
-.hero-signature span {
+.hero-signature-list span {
   display: inline-flex;
   align-items: center;
-  min-height: 2rem;
-  padding: 0 0.85rem;
-  color: var(--muted);
-  background: rgba(255, 255, 255, 0.54);
-  border: 1px solid rgba(23, 20, 17, 0.08);
+  min-height: 2.65rem;
+  padding: 0 1.25rem;
+  color: #5f4b3d;
+  background: rgba(255, 253, 248, 0.56);
+  border: 1px solid rgba(119, 90, 68, 0.14);
   border-radius: 999px;
-  font-size: 0.75rem;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.64);
+  font-size: clamp(0.84rem, 1vw, 0.98rem);
+  font-weight: 720;
+  letter-spacing: 0.04em;
 }
 
 @media (max-width: 900px) {
   .hero {
-    min-height: 100vh;
-    padding: 7.6rem 1rem 4rem;
+    min-height: 100dvh;
+    padding: 5.7rem 1rem 1.35rem;
+    background:
+      repeating-linear-gradient(90deg, rgba(84, 61, 45, 0.035) 0 1px, transparent 1px 4.8rem),
+      #efe2d0;
   }
 
   .hero::before {
+    inset: 0;
+    z-index: 0;
+    width: auto;
+    height: auto;
+    border-radius: 0;
     background:
-      linear-gradient(180deg, rgba(239, 226, 208, 0.06), rgba(239, 226, 208, 0.58)),
-      url('/images-linstantglow/rond.jpeg') center var(--hero-bg-y) / auto 100% no-repeat;
+      linear-gradient(180deg, rgba(239, 226, 208, 0.42), rgba(239, 226, 208, 0.42)),
+      url('/images-linstantglow/rond.jpeg') center center / cover no-repeat;
+    box-shadow: none;
+    transform: none;
+  }
+
+  .hero::after {
+    inset: 0;
+    z-index: 0;
+    width: auto;
+    height: auto;
+    background:
+      linear-gradient(180deg, rgba(255, 253, 248, 0.08), rgba(239, 226, 208, 0.18) 48%, rgba(239, 226, 208, 0.34) 100%),
+      repeating-linear-gradient(90deg, rgba(84, 61, 45, 0.035) 0 1px, transparent 1px 4.8rem);
+    opacity: 1;
+    filter: none;
+    mask-image: none;
+    pointer-events: none;
+    transform: none;
   }
 
   .hero-content {
     width: 100%;
+    justify-content: center;
+    min-height: calc(100dvh - 7rem);
+  }
+
+  .hero-title-logo-wrap {
+    margin-bottom: 1.05rem;
   }
 
   .hero-title-logo {
-    width: min(96vw, 38rem);
+    width: min(96vw, 34rem);
     max-width: 100%;
+  }
+
+  .hero-subtitle {
+    width: min(24rem, 100%);
+    margin-bottom: 1.4rem;
+    font-size: 0.98rem;
+    line-height: 1.6;
+  }
+
+  .hero-actions {
+    gap: 0.55rem;
+  }
+
+  .hero-btn,
+  .hero-btn-secondary {
+    min-height: 3.3rem;
+    padding: 0 1.15rem;
+    font-size: 0.78rem;
+  }
+
+  .hero-signature {
+    width: 100%;
+    gap: 0.7rem;
+    margin-top: 1.35rem;
+    padding-top: 0.95rem;
+  }
+
+  .hero-signature-label {
+    font-size: 0.82rem;
+    letter-spacing: 0.18em;
+  }
+
+  .hero-signature-list {
+    gap: 0.42rem;
+  }
+
+  .hero-signature-list span {
+    min-height: 2.25rem;
+    padding: 0 0.85rem;
+    font-size: 0.85rem;
   }
 }
 
 @media (max-width: 520px) {
+  .hero::before {
+    background:
+      linear-gradient(180deg, rgba(239, 226, 208, 0.42), rgba(239, 226, 208, 0.42)),
+      url('/images-linstantglow/rond.jpeg') center center / cover no-repeat;
+  }
+
+  .hero::after {
+    background:
+      linear-gradient(180deg, rgba(255, 253, 248, 0.08), rgba(239, 226, 208, 0.18) 48%, rgba(239, 226, 208, 0.34) 100%),
+      repeating-linear-gradient(90deg, rgba(84, 61, 45, 0.035) 0 1px, transparent 1px 4.8rem);
+  }
+
   .hero-actions {
     align-items: stretch;
     flex-direction: column;
@@ -239,6 +344,10 @@
   }
 
   .hero-title-logo {
-    width: min(98vw, 30rem);
+    width: min(98vw, 28rem);
+  }
+
+  .hero-signature-list span:nth-child(n+4) {
+    display: none;
   }
 }
