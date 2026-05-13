@@ -27,15 +27,17 @@ const atelierPhotos = [
   { src: '33-optimized.jpg', label: 'Nail art signature', shape: 'tall' },
   { src: '35-optimized.jpg', label: 'Noir glossy', shape: 'tall' },
   { src: 'cabineuvbleu.jpg', label: 'Cabine UV bleue', shape: 'wide' },
-  { src: '17.jpg', label: 'Onlges rose', shape: 'wide' },
+  { src: '17.jpg', label: 'Ongles rose', shape: 'wide' },
   { src: '11.jpeg', label: 'Soins solaires', shape: 'tall' },
   { src: 'excellente800turbopoweruv.jpg', label: 'Excellence 800', shape: 'wide' },
   { src: 'cremesolaire.jpg', label: 'Soin solaire', shape: 'tall' },
+  { src: 'madero.jpg', label: 'Madérothérapie', shape: 'tall' },
+  { src: 'madero2.jpg', label: 'Drainage lymphatique', shape: 'tall' },
 ]
 
 const photoColumns = [
-  [atelierPhotos[0], atelierPhotos[4], atelierPhotos[7], atelierPhotos[10]],
-  [atelierPhotos[1], atelierPhotos[5], atelierPhotos[8]],
+  [atelierPhotos[0], atelierPhotos[4], atelierPhotos[7], atelierPhotos[11], atelierPhotos[10]],
+  [atelierPhotos[1], atelierPhotos[5], atelierPhotos[8], atelierPhotos[12]],
   [atelierPhotos[2], atelierPhotos[3], atelierPhotos[6], atelierPhotos[9]],
 ]
 

@@ -70,6 +70,8 @@ const localBusinessJsonLd = {
       { "@type": "Offer", itemOffered: { "@type": "Service", name: "Blanchiment dentaire" } },
       { "@type": "Offer", itemOffered: { "@type": "Service", name: "Beauté des mains" } },
       { "@type": "Offer", itemOffered: { "@type": "Service", name: "Beauté des pieds" } },
+      { "@type": "Offer", itemOffered: { "@type": "Service", name: "Drainage lymphatique" } },
+      { "@type": "Offer", itemOffered: { "@type": "Service", name: "Madérothérapie Body Sculpt" } },
       { "@type": "Offer", itemOffered: { "@type": "Service", name: "Spray tan" } },
       { "@type": "Offer", itemOffered: { "@type": "Service", name: "Salon UV" } },
     ],

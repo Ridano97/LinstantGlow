@@ -163,6 +163,26 @@ const services = [
           ['30 minutes', '30€'],
         ],
       },
+      {
+        title: 'Drainage lymphatique',
+        rows: [
+          ['Corps complet', '120€'],
+          ['Corps complet - 6 séances', '600€'],
+          ['Jambes complètes', '70€'],
+          ['Ventre / dos', '70€'],
+          ['Visage', '50€'],
+        ],
+      },
+      {
+        title: 'Madérothérapie Body Sculpt',
+        rows: [
+          ['Corps complet', '120€'],
+          ['Corps complet - 6 séances', '600€'],
+          ['Jambes complètes', '70€'],
+          ['Ventre / dos', '70€'],
+          ['Visage', '50€'],
+        ],
+      },
     ],
   },
   {
