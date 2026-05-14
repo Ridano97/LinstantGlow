@@ -12,12 +12,12 @@ const localBusinessJsonLd = {
   "@type": "BeautySalon",
   name: "L'Instant Glow",
   image: [
-    "https://instantglow.fr/images-linstantglow/logocomplet.jpg",
-    "https://instantglow.fr/images-linstantglow/devanturesalonnuit.jpg",
-    "https://instantglow.fr/images-linstantglow/canapeaccueil.jpg",
+    "https://www.linstantglow.com/images-linstantglow/logocomplet.jpg",
+    "https://www.linstantglow.com/images-linstantglow/devanturesalonnuit.jpg",
+    "https://www.linstantglow.com/images-linstantglow/canapeaccueil.jpg",
   ],
-  logo: "https://instantglow.fr/images-linstantglow/logocomplet.jpg",
-  url: "https://instantglow.fr",
+  logo: "https://www.linstantglow.com/images-linstantglow/logocomplet.jpg",
+  url: "https://www.linstantglow.com",
   hasMap: "https://www.google.com/maps/search/?api=1&query=L%27Instant%20Glow%20107%20Rte%20de%20Saint-Genis%2001280%20Pr%C3%A9vessin-Mo%C3%ABns",
   sameAs: [
     "https://www.instagram.com/linstantglow/",
@@ -64,8 +64,8 @@ const localBusinessJsonLd = {
     "@type": "OfferCatalog",
     name: "Prestations L'Instant Glow",
     itemListElement: [
-      { "@type": "Offer", itemOffered: { "@type": "Service", name: "Extension de cils" } },
-      { "@type": "Offer", itemOffered: { "@type": "Service", name: "Browlift" } },
+      { "@type": "Offer", itemOffered: { "@type": "Service", name: "Extensions de cils" } },
+      { "@type": "Offer", itemOffered: { "@type": "Service", name: "Brow lift" } },
       { "@type": "Offer", itemOffered: { "@type": "Service", name: "Soin visage" } },
       { "@type": "Offer", itemOffered: { "@type": "Service", name: "Blanchiment dentaire" } },
       { "@type": "Offer", itemOffered: { "@type": "Service", name: "Beauté des mains" } },
@@ -89,17 +89,16 @@ export default function Home() {
       <LuxuryScroll />
       <Navbar />
       <div className="scene-scroll">
-        <span id="experience" className="scene-anchor scene-anchor-0" aria-hidden="true" />
-        <span id="salon" className="scene-anchor scene-anchor-1" aria-hidden="true" />
-        <span id="prestations" className="scene-anchor scene-anchor-2" aria-hidden="true" />
-        <span id="atelier" className="scene-anchor scene-anchor-3" aria-hidden="true" />
-        <span id="contact" className="scene-anchor scene-anchor-4" aria-hidden="true" />
-
         <div className="scene-stage">
+          <span id="experience" className="scene-anchor scene-anchor-0" aria-hidden="true" />
           <div className="scene-panel scene-panel-hero"><Hero /></div>
+          <span id="salon" className="scene-anchor scene-anchor-1" aria-hidden="true" />
           <div className="scene-panel scene-panel-about"><About /></div>
+          <span id="prestations" className="scene-anchor scene-anchor-2" aria-hidden="true" />
           <div className="scene-panel scene-panel-services"><Services /></div>
+          <span id="atelier" className="scene-anchor scene-anchor-3" aria-hidden="true" />
           <div className="scene-panel scene-panel-atelier"><Atelier /></div>
+          <span id="contact" className="scene-anchor scene-anchor-4" aria-hidden="true" />
           <div className="scene-panel scene-panel-slogan"><Slogan /></div>
         </div>
       </div>

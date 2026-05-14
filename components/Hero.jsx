@@ -83,7 +83,7 @@ export default function Hero() {
             <span>Brow lift</span>
             <span>Soin visage</span>
             <span>Blanchiment dentaire</span>
-            <span>Corps & Soleil UV</span>
+            <span>Corps & soleil UV</span>
             <span>Beauté des mains & pieds</span>
           </div>
         </motion.div>

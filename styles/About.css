@@ -20,7 +20,7 @@
 
 .about-image {
   width: 100%;
-  min-height: 35rem;
+  min-height: clamp(27rem, 60vh, 35rem);
   position: relative;
   border-radius: 1.4rem;
   overflow: visible;
@@ -75,16 +75,48 @@
   margin: 0 0 1.55rem;
   color: var(--ink);
   font-family: Georgia, 'Times New Roman', serif;
-  font-size: clamp(2.45rem, 5vw, 4.9rem);
+  font-size: clamp(2.35rem, 4.35vw, 4.35rem);
   font-weight: 400;
   line-height: 1.02;
 }
 
 .about-content p:not(.section-kicker) {
   width: min(43rem, 100%);
-  line-height: 1.95;
+  line-height: 1.78;
   color: var(--soft-ink);
   margin: 0 0 1rem;
+}
+
+@media (min-width: 901px) and (max-height: 820px) {
+  .about {
+    gap: clamp(2.2rem, 5vw, 4.2rem);
+  }
+
+  .about-image {
+    min-height: clamp(22rem, 62vh, 29rem);
+  }
+
+  .about-title {
+    margin-bottom: 1rem;
+    font-size: clamp(2rem, 3.7vw, 3.55rem);
+    line-height: 0.98;
+  }
+
+  .about-content p:not(.section-kicker) {
+    font-size: 0.94rem;
+    line-height: 1.58;
+    margin-bottom: 0.72rem;
+  }
+
+  .about-metrics {
+    margin-top: 1.15rem;
+  }
+
+  .about-metrics span {
+    min-height: 4.7rem;
+    padding: 0.75rem;
+    font-size: 0.9rem;
+  }
 }
 
 .about-metrics {

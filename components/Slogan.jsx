@@ -36,7 +36,7 @@ const googleReviews = [
       "J'ai découvert ce salon le lendemain de son ouverture, quelle belle surprise ! Des filles aussi belles qu'agréables, un accueil au top dans un lieu canon.",
   },
   {
-    author: 'pamart pauline',
+    author: 'Pamart Pauline',
     initial: 'P',
     source: 'Google',
     accent: 'linear-gradient(135deg, #9d5fc0, #74449b)',
@@ -46,7 +46,7 @@ const googleReviews = [
       "Je suis allée pour la première fois dans cet institut afin de faire mes ongles et j'ai été ravie de mon expérience. La décoration est soignée, réalisée avec beaucoup de goût, et on s'y sent directement à l'aise.",
   },
   {
-    author: 'Soumia kouider',
+    author: 'Soumia Kouider',
     initial: 'S',
     source: 'Google',
     accent: 'linear-gradient(135deg, #1d1d1d, #000)',
@@ -275,7 +275,7 @@ export default function Slogan() {
                 <h3>Contact</h3>
 
                 <p>
-                  <a href="tel:+33328554433">0328554433</a>
+                  <a href="tel:+33328554433">03 28 55 44 33</a>
                   <br />
                   <a href="mailto:contact@instantglow.fr">
                     contact@instantglow.fr

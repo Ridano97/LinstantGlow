@@ -29,8 +29,9 @@ const setPanelVector = (panel, prefix, vector) => {
 export default function LuxuryScroll() {
   useEffect(() => {
     const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    const canUseFullpageScene = window.matchMedia('(min-width: 901px) and (min-height: 760px)').matches
 
-    if (reduceMotion) return undefined
+    if (reduceMotion || !canUseFullpageScene) return undefined
 
     const panels = Array.from(document.querySelectorAll('.scene-panel'))
     const html = document.documentElement

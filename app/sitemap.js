@@ -1,4 +1,4 @@
-const siteUrl = 'https://instantglow.fr'
+const siteUrl = 'https://www.linstantglow.com'
 
 export default function sitemap() {
   return [

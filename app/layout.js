@@ -1,19 +1,19 @@
 import './globals.css'
 
 export const metadata = {
-  metadataBase: new URL("https://instantglow.fr"),
+  metadataBase: new URL("https://www.linstantglow.com"),
   title: {
     default: "L'Instant Glow — Institut de beauté à Prévessin-Moëns",
     template: "%s | L'Instant Glow",
   },
-  description: "Institut de beauté premium à Prévessin-Moëns : extension de cils, browlift, soins visage, blanchiment dentaire, beauté des mains et pieds, spray tan, UV et massages.",
+  description: "Institut de beauté premium à Prévessin-Moëns : extensions de cils, brow lift, soins visage, blanchiment dentaire, beauté des mains et pieds, spray tan, UV, drainage lymphatique et madérothérapie.",
   applicationName: "L'Instant Glow",
   category: "Institut de beauté",
   keywords: [
     "L'Instant Glow",
     "institut de beauté Prévessin-Moëns",
     "extension de cils Prévessin-Moëns",
-    "browlift Pays de Gex",
+    "brow lift Pays de Gex",
     "soin visage Prévessin-Moëns",
     "blanchiment dentaire Prévessin-Moëns",
     "beauté des mains Prévessin-Moëns",
@@ -24,6 +24,8 @@ export const metadata = {
     "manucure Prévessin-Moëns",
     "spray tan Pays de Gex",
     "massage Prévessin-Moëns",
+    "drainage lymphatique Prévessin-Moëns",
+    "madérothérapie Prévessin-Moëns",
   ],
   authors: [{ name: "L'Instant Glow" }],
   creator: "L'Instant Glow",
@@ -43,7 +45,7 @@ export const metadata = {
   },
   openGraph: {
     title: "L'Instant Glow — Institut de beauté à Prévessin-Moëns",
-    description: "Réservez vos soins cils, brows, visage, blanchiment dentaire, beauté des mains et pieds, spray tan, UV et bien-être chez L'Instant Glow à Prévessin-Moëns.",
+    description: "Réservez vos soins des cils, brow lift, visage, blanchiment dentaire, beauté des mains et pieds, spray tan, UV et bien-être chez L'Instant Glow à Prévessin-Moëns.",
     url: "/",
     type: "website",
     locale: "fr_FR",
@@ -60,7 +62,7 @@ export const metadata = {
   twitter: {
     card: "summary_large_image",
     title: "L'Instant Glow — Institut de beauté à Prévessin-Moëns",
-    description: "Institut beauté, cils, browlift, soins visage, blanchiment dentaire, manucure, beauté des pieds, spray tan, UV et massages à Prévessin-Moëns.",
+    description: "Institut beauté, cils, brow lift, soins visage, blanchiment dentaire, manucure, beauté des pieds, spray tan, UV, drainage lymphatique et massages à Prévessin-Moëns.",
     images: ["/images-linstantglow/logocomplet.jpg"],
   },
 }

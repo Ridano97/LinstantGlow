@@ -68,7 +68,7 @@ const services = [
     images: ['18.jpg'],
     sections: [
       {
-        title: 'Extension de cil',
+        title: 'Extensions de cils',
         rows: [
           ['Volume russe', '85€'],
           ['Remplissage volume russe', '65€'],
@@ -78,15 +78,15 @@ const services = [
         ],
       },
       {
-        title: 'Browlift',
+        title: 'Brow lift',
         rows: [
-          ['Browlift simple', '60€'],
-          ['Browlift teinture + restructuration', '65€'],
-          ['Browlift teinture + restructuration + épilation', '75€'],
+          ['Brow lift simple', '60€'],
+          ['Brow lift teinture + restructuration', '65€'],
+          ['Brow lift teinture + restructuration + épilation', '75€'],
         ],
       },
       {
-        title: 'Rehaussement de cil',
+        title: 'Rehaussement de cils',
         rows: [
           ['Rehaussement simple', '50€'],
           ['Rehaussement + teinture', '60€'],
@@ -132,7 +132,7 @@ const services = [
   {
     title: 'Corps & bien-être',
     img: '19.jpg',
-    text: 'Massages, spray tan et soins bien-être pour une sensation légère et solaire.',
+    text: 'Massages, drainage lymphatique, madérothérapie, spray tan et soins bien-être pour une sensation légère, sculptée et solaire.',
     images: ['19.jpg'],
     sections: [
       {
@@ -205,8 +205,8 @@ const services = [
         title: 'Beauté des pieds',
         rows: [
           ['Semi-permanent pieds', '50€'],
-          ['Dépose semi-permanent pied', '20€'],
-          ['Mise en beauté des pieds pedispa', '55€'],
+          ['Dépose semi-permanent pieds', '20€'],
+          ['Mise en beauté des pieds PédiSpa', '55€'],
           ['Mise en beauté des pieds + semi-permanent', '85€'],
           ['Rallongement grand orteil gel pied', '5€'],
           ['Capsule gel pied', '65€'],

@@ -25,6 +25,7 @@
 html {
   scroll-behavior: smooth;
   background: #efe2d0;
+  overflow-x: clip;
 }
 
 body {
@@ -32,6 +33,7 @@ body {
   font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   color: var(--ink);
   background: #efe2d0;
+  overflow-x: clip;
 }
 
 html.scene-fullpage,
@@ -72,18 +74,14 @@ main {
 }
 
 .scene-anchor {
-  position: absolute;
+  position: relative;
+  display: block;
+  top: -6rem;
   left: 0;
   width: 1px;
   height: 1px;
   pointer-events: none;
 }
-
-.scene-anchor-0 { top: 0; }
-.scene-anchor-1 { top: 100svh; }
-.scene-anchor-2 { top: 200svh; }
-.scene-anchor-3 { top: 300svh; }
-.scene-anchor-4 { top: 400svh; }
 
 .scroll-progress {
   position: fixed;
@@ -158,18 +156,43 @@ main {
 
 @media (min-width: 901px) {
   .scene-scroll {
-    height: 500svh;
+    height: auto;
   }
 
   .scene-stage {
-    position: sticky;
-    top: 0;
-    height: 100svh;
-    overflow: hidden;
+    position: relative;
+    height: auto;
+    overflow: visible;
     background: #efe2d0;
   }
 
   .scene-panel {
+    position: relative;
+    height: auto;
+    overflow: visible;
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transform: none;
+  }
+
+  html.scene-fullpage .scene-scroll {
+    height: 100svh;
+    overflow: hidden;
+  }
+
+  html.scene-fullpage .scene-stage {
+    position: relative;
+    height: 100svh;
+    overflow: hidden;
+  }
+
+  html.scene-fullpage .scene-anchor {
+    position: absolute;
+    top: 0;
+  }
+
+  html.scene-fullpage .scene-panel {
     position: absolute;
     inset: 0;
     height: 100svh;
@@ -186,7 +209,7 @@ main {
     z-index: 0;
   }
 
-  .scene-panel:first-child {
+  html.scene-fullpage .scene-panel:first-child {
     opacity: 1;
     visibility: visible;
     transform: translate3d(0, 0, 0) scale(1);
@@ -199,8 +222,8 @@ main {
     transform: translate3d(var(--scene-enter-x, 100%), var(--scene-enter-y, 0), 0) scale(0.985);
   }
 
-  .scene-panel-active,
-  .scene-panel:first-child.scene-panel-active {
+  html.scene-fullpage .scene-panel-active,
+  html.scene-fullpage .scene-panel:first-child.scene-panel-active {
     opacity: 1;
     visibility: visible;
     pointer-events: auto;
@@ -211,8 +234,8 @@ main {
     z-index: 3;
   }
 
-  .scene-panel-exit,
-  .scene-panel:first-child.scene-panel-exit {
+  html.scene-fullpage .scene-panel-exit,
+  html.scene-fullpage .scene-panel:first-child.scene-panel-exit {
     opacity: 0;
     visibility: visible;
     pointer-events: none;
@@ -223,25 +246,11 @@ main {
     z-index: 2;
   }
 
-  html.scene-fullpage .scene-scroll {
-    height: 100svh;
-    overflow: hidden;
-  }
-
-  html.scene-fullpage .scene-stage {
-    position: relative;
-    height: 100svh;
-  }
-
-  html.scene-fullpage .scene-anchor {
-    top: 0;
-  }
-
-  .scene-panel > .hero,
-  .scene-panel > .about,
-  .scene-panel > .services,
-  .scene-panel > .atelier,
-  .scene-panel > .slogan {
+  html.scene-fullpage .scene-panel > .hero,
+  html.scene-fullpage .scene-panel > .about,
+  html.scene-fullpage .scene-panel > .services,
+  html.scene-fullpage .scene-panel > .atelier,
+  html.scene-fullpage .scene-panel > .slogan {
     height: 100%;
     min-height: 100%;
     max-height: 100%;
@@ -254,81 +263,54 @@ main {
   .slogan {
     display: grid;
     align-content: center;
-    padding-block: clamp(6.5rem, 10vh, 8rem) clamp(2.5rem, 5vh, 4rem);
+    padding-block: clamp(5.7rem, 8vh, 6.8rem) clamp(2rem, 4vh, 3.2rem);
+  }
+}
+
+@media (min-width: 901px) and (max-height: 820px) {
+  html.scene-fullpage .scene-panel > .hero,
+  html.scene-fullpage .scene-panel > .about,
+  html.scene-fullpage .scene-panel > .services,
+  html.scene-fullpage .scene-panel > .atelier,
+  html.scene-fullpage .scene-panel > .slogan {
+    overflow: clip;
+  }
+
+  .about,
+  .services,
+  .atelier,
+  .slogan {
+    padding-block: 5rem 1.4rem;
   }
 }
 
 @media (max-width: 900px) {
   .scene-scroll,
   html.scene-fullpage .scene-scroll {
-    height: 100dvh;
-    overflow: hidden;
+    height: auto;
+    overflow: visible;
   }
 
   .scene-stage,
   html.scene-fullpage .scene-stage {
     position: relative;
-    height: 100dvh;
-    overflow: hidden;
+    height: auto;
+    overflow: visible;
     background: #efe2d0;
   }
 
   .scene-anchor {
-    top: 0;
+    top: -5rem;
   }
 
   .scene-panel {
-    position: absolute;
-    inset: 0;
-    height: 100dvh;
-    overflow: hidden;
-    opacity: 0;
-    visibility: hidden;
-    pointer-events: none;
-    transform: translate3d(var(--scene-enter-x, 100%), var(--scene-enter-y, 0), 0) scale(0.985);
-    transition:
-      transform 0.9s cubic-bezier(0.76, 0, 0.24, 1),
-      opacity 0.68s ease,
-      visibility 0s linear 0.9s;
-    will-change: transform, opacity, visibility;
-    z-index: 0;
-  }
-
-  .scene-panel:first-child {
-    opacity: 1;
-    visibility: visible;
-    transform: translate3d(0, 0, 0) scale(1);
-  }
-
-  html.scene-fullpage .scene-panel:first-child:not(.scene-panel-active):not(.scene-panel-exit) {
-    opacity: 0;
-    visibility: hidden;
-    pointer-events: none;
-    transform: translate3d(var(--scene-enter-x, 100%), var(--scene-enter-y, 0), 0) scale(0.985);
-  }
-
-  .scene-panel-active,
-  .scene-panel:first-child.scene-panel-active {
+    position: relative;
+    height: auto;
+    overflow: visible;
     opacity: 1;
     visibility: visible;
     pointer-events: auto;
-    transform: translate3d(0, 0, 0) scale(1);
-    transition:
-      transform 0.9s cubic-bezier(0.76, 0, 0.24, 1),
-      opacity 0.68s ease;
-    z-index: 3;
-  }
-
-  .scene-panel-exit,
-  .scene-panel:first-child.scene-panel-exit {
-    opacity: 0;
-    visibility: visible;
-    pointer-events: none;
-    transform: translate3d(var(--scene-exit-x, -38%), var(--scene-exit-y, 0), 0) scale(0.97);
-    transition:
-      transform 0.9s cubic-bezier(0.76, 0, 0.24, 1),
-      opacity 0.68s ease;
-    z-index: 2;
+    transform: none;
   }
 
   .scene-panel > .hero,
@@ -336,15 +318,7 @@ main {
   .scene-panel > .services,
   .scene-panel > .atelier,
   .scene-panel > .slogan {
-    height: 100%;
-    min-height: 100%;
-    max-height: 100%;
-    overflow: hidden;
-  }
-
-  .scene-panel > .slogan {
-    overflow-y: auto;
-    overscroll-behavior: contain;
-    -webkit-overflow-scrolling: touch;
+    min-height: 100dvh;
+    overflow: visible;
   }
 }

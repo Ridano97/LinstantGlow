@@ -7,15 +7,15 @@ import { motion } from 'framer-motion'
 const reels = [
   {
     label: '',
-    src: 'https://iframe.videodelivery.net/8fe8e4e3edf206e9b87a9ae3dd1143c7?autoplay=true&muted=true&loop=true&controls=false',
+    src: 'https://iframe.videodelivery.net/8fe8e4e3edf206e9b87a9ae3dd1143c7?autoplay=true&muted=true&loop=true&controls=false&playsinline=true&preload=auto',
   },
   {
     label: '',
-    src: 'https://iframe.videodelivery.net/4afcba2681602c9a840cad1e6be851fe?autoplay=true&muted=true&loop=true&controls=false',
+    src: 'https://iframe.videodelivery.net/4afcba2681602c9a840cad1e6be851fe?autoplay=true&muted=true&loop=true&controls=false&playsinline=true&preload=auto',
   },
   {
     label: '',
-    src: 'https://iframe.videodelivery.net/c270bf514ac626480422baa9bd4486bd?autoplay=true&muted=true&loop=true&controls=false',
+    src: 'https://iframe.videodelivery.net/c270bf514ac626480422baa9bd4486bd?autoplay=true&muted=true&loop=true&controls=false&playsinline=true&preload=auto',
   },
 ]
 
@@ -57,12 +57,19 @@ export default function Atelier() {
 
   useEffect(() => {
     const loadReels = () => setCanLoadReels(true)
+    const mobileViewport = window.matchMedia('(max-width: 900px)').matches
+
+    if (mobileViewport) {
+      loadReels()
+      return undefined
+    }
+
     const handleSceneProgress = (event) => {
       if (typeof event.detail === 'number' && event.detail >= 0.74) {
         loadReels()
       }
     }
-    const fallbackTimer = window.setTimeout(loadReels, 8000)
+    const fallbackTimer = window.setTimeout(loadReels, 2500)
 
     window.addEventListener('luxurySceneProgress', handleSceneProgress)
 
@@ -131,9 +138,9 @@ export default function Atelier() {
                         <iframe
                           src={reel.src}
                           title={`Vidéo atelier ${index + 1}`}
-                          allow="autoplay; encrypted-media; picture-in-picture"
+                          allow="autoplay; encrypted-media; fullscreen; picture-in-picture"
                           allowFullScreen
-                          loading="lazy"
+                          loading={index === activeReel ? 'eager' : 'lazy'}
                           style={{
                             width: '100%',
                             height: '100%',
