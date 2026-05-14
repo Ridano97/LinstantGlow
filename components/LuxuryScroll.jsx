@@ -29,9 +29,8 @@ const setPanelVector = (panel, prefix, vector) => {
 export default function LuxuryScroll() {
   useEffect(() => {
     const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
-    const canUseFullpageScene = window.matchMedia('(min-width: 901px)').matches
 
-    if (reduceMotion || !canUseFullpageScene) return undefined
+    if (reduceMotion) return undefined
 
     const panels = Array.from(document.querySelectorAll('.scene-panel'))
     const html = document.documentElement
@@ -42,7 +41,9 @@ export default function LuxuryScroll() {
 
     let activeScene = 0
     let isAnimating = false
+    let touchStartX = 0
     let touchStartY = 0
+    let touchStartedInScrollableZone = false
     let lastWheelAt = 0
     let transitionTimer = null
 
@@ -77,7 +78,8 @@ export default function LuxuryScroll() {
     }
 
     const isInsideServiceModal = (target) => target.closest?.('.service-modal, .service-modal-backdrop')
-    const isInsideScrollableZone = (target) => target.closest?.('.services-grid, .atelier-phone-carousel, .atelier-reels-track, .atelier-mobile-track, .slogan')
+    const isInsideScrollableZone = (target) => target.closest?.('.services-grid, .atelier-phone-carousel, .atelier-reels-track, .atelier-mobile-track')
+    const isInsideVerticalScrollableZone = (target) => target.closest?.('.slogan, .service-modal-prices')
 
     const goToScene = (nextScene) => {
       const targetScene = clamp(nextScene, 0, panels.length - 1)
@@ -90,7 +92,10 @@ export default function LuxuryScroll() {
       const direction = targetScene > previousScene ? 1 : -1
       const incoming = panels[targetScene]
       const outgoing = panels[previousScene]
-      const baseVector = ENTER_DIRECTIONS[(targetScene - 1 + ENTER_DIRECTIONS.length) % ENTER_DIRECTIONS.length]
+      const isMobileScene = window.matchMedia('(max-width: 900px)').matches
+      const baseVector = isMobileScene
+        ? { x: 0, y: 112 }
+        : ENTER_DIRECTIONS[(targetScene - 1 + ENTER_DIRECTIONS.length) % ENTER_DIRECTIONS.length]
       const enterVector = {
         x: direction > 0 ? baseVector.x : -baseVector.x,
         y: direction > 0 ? baseVector.y : -baseVector.y,
@@ -136,22 +141,34 @@ export default function LuxuryScroll() {
     }
 
     const handleTouchStart = (event) => {
-      if (isInsideServiceModal(event.target) || isInsideScrollableZone(event.target)) return
+      if (isInsideServiceModal(event.target)) return
 
+      touchStartX = event.touches[0]?.clientX ?? 0
       touchStartY = event.touches[0]?.clientY ?? 0
+      touchStartedInScrollableZone = Boolean(isInsideScrollableZone(event.target))
     }
 
     const handleTouchMove = (event) => {
-      if (isInsideServiceModal(event.target) || isInsideScrollableZone(event.target)) return
+      if (isInsideServiceModal(event.target) || isInsideVerticalScrollableZone(event.target)) return
+
+      const touch = event.touches[0]
+      const distanceX = (touch?.clientX ?? touchStartX) - touchStartX
+      const distanceY = (touch?.clientY ?? touchStartY) - touchStartY
+
+      if (touchStartedInScrollableZone && Math.abs(distanceX) > Math.abs(distanceY)) return
 
       event.preventDefault()
     }
 
     const handleTouchEnd = (event) => {
-      if (isInsideServiceModal(event.target) || isInsideScrollableZone(event.target)) return
+      if (isInsideServiceModal(event.target) || isInsideVerticalScrollableZone(event.target)) return
 
+      const touchEndX = event.changedTouches[0]?.clientX ?? touchStartX
       const touchEndY = event.changedTouches[0]?.clientY ?? touchStartY
+      const horizontalDistance = touchStartX - touchEndX
       const distance = touchStartY - touchEndY
+
+      if (touchStartedInScrollableZone && Math.abs(horizontalDistance) > Math.abs(distance)) return
 
       if (Math.abs(distance) > 42) {
         goToScene(activeScene + (distance > 0 ? 1 : -1))

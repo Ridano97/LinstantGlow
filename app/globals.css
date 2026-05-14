@@ -285,14 +285,12 @@ main {
 }
 
 @media (max-width: 900px) {
-  .scene-scroll,
-  html.scene-fullpage .scene-scroll {
+  .scene-scroll {
     height: auto;
     overflow: visible;
   }
 
-  .scene-stage,
-  html.scene-fullpage .scene-stage {
+  .scene-stage {
     position: relative;
     height: auto;
     overflow: visible;
@@ -320,5 +318,92 @@ main {
   .scene-panel > .slogan {
     min-height: 100dvh;
     overflow: visible;
+  }
+
+  html.scene-fullpage .scene-scroll {
+    height: 100dvh;
+    overflow: hidden;
+  }
+
+  html.scene-fullpage .scene-stage {
+    position: relative;
+    height: 100dvh;
+    overflow: hidden;
+    background: #efe2d0;
+  }
+
+  html.scene-fullpage .scene-anchor {
+    position: absolute;
+    top: 0;
+  }
+
+  html.scene-fullpage .scene-panel {
+    position: absolute;
+    inset: 0;
+    height: 100dvh;
+    overflow: hidden;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transform: translate3d(0, var(--scene-enter-y, 100%), 0) scale(0.985);
+    transition:
+      transform 0.82s cubic-bezier(0.76, 0, 0.24, 1),
+      opacity 0.58s ease,
+      visibility 0s linear 0.82s;
+    will-change: transform, opacity, visibility;
+    z-index: 0;
+  }
+
+  html.scene-fullpage .scene-panel:first-child {
+    opacity: 1;
+    visibility: visible;
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+
+  html.scene-fullpage .scene-panel:first-child:not(.scene-panel-active):not(.scene-panel-exit) {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transform: translate3d(0, var(--scene-enter-y, 100%), 0) scale(0.985);
+  }
+
+  html.scene-fullpage .scene-panel-active,
+  html.scene-fullpage .scene-panel:first-child.scene-panel-active {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transform: translate3d(0, 0, 0) scale(1);
+    transition:
+      transform 0.82s cubic-bezier(0.76, 0, 0.24, 1),
+      opacity 0.58s ease;
+    z-index: 3;
+  }
+
+  html.scene-fullpage .scene-panel-exit,
+  html.scene-fullpage .scene-panel:first-child.scene-panel-exit {
+    opacity: 0;
+    visibility: visible;
+    pointer-events: none;
+    transform: translate3d(0, var(--scene-exit-y, -34%), 0) scale(0.97);
+    transition:
+      transform 0.82s cubic-bezier(0.76, 0, 0.24, 1),
+      opacity 0.58s ease;
+    z-index: 2;
+  }
+
+  html.scene-fullpage .scene-panel > .hero,
+  html.scene-fullpage .scene-panel > .about,
+  html.scene-fullpage .scene-panel > .services,
+  html.scene-fullpage .scene-panel > .atelier,
+  html.scene-fullpage .scene-panel > .slogan {
+    height: 100%;
+    min-height: 100%;
+    max-height: 100%;
+    overflow: hidden;
+  }
+
+  html.scene-fullpage .scene-panel > .slogan {
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
   }
 }
