@@ -399,7 +399,7 @@
   white-space: nowrap;
 }
 
-@media (min-width: 901px) and (max-height: 820px) {
+@media (min-width: 901px) and (max-height: 900px) {
   .slogan {
     padding-top: 5.3rem;
   }

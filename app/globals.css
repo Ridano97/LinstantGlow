@@ -267,7 +267,7 @@ main {
   }
 }
 
-@media (min-width: 901px) and (max-height: 820px) {
+@media (min-width: 901px) and (max-height: 900px) {
   html.scene-fullpage .scene-panel > .hero,
   html.scene-fullpage .scene-panel > .about,
   html.scene-fullpage .scene-panel > .services,

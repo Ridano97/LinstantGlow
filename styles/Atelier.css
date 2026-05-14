@@ -275,7 +275,7 @@
   mask-image: linear-gradient(to bottom, transparent 0%, #000 10%, #000 90%, transparent 100%);
 }
 
-@media (min-width: 981px) and (max-height: 820px) {
+@media (min-width: 981px) and (max-height: 900px) {
   .atelier-layout {
     grid-template-columns: minmax(14rem, 30%) minmax(24rem, 1fr);
     gap: clamp(1.1rem, 2vw, 2.2rem);

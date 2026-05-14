@@ -87,7 +87,7 @@
   margin: 0 0 1rem;
 }
 
-@media (min-width: 901px) and (max-height: 820px) {
+@media (min-width: 901px) and (max-height: 900px) {
   .about {
     gap: clamp(2.2rem, 5vw, 4.2rem);
   }
