@@ -12,7 +12,7 @@ const hours = [
   ['Jeudi', '10:00 - 19:00'],
   ['Vendredi', '10:00 - 19:00'],
   ['Samedi', '10:00 - 19:00'],
-  ['Dimanche', '10:00 - 19:00'],
+  ['Dimanche', '14:00 - 19:00'],
 ]
 
 const googleReviews = [
