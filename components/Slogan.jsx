@@ -275,7 +275,7 @@ export default function Slogan() {
                 <h3>Contact</h3>
 
                 <p>
-                  <a href="tel:+33328554433">03 28 55 44 33</a>
+                  <a href="tel:+330450563649">04 50 56 36 49</a>
                   <br />
                   <a href="mailto:contact@instantglow.fr">
                     contact@instantglow.fr
