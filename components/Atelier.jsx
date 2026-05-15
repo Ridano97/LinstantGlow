@@ -66,18 +66,21 @@ export default function Atelier() {
         setVideoRefreshKey((key) => key + 1)
       }
     }
-    const fallbackTimer = mobileViewport ? null : window.setTimeout(loadReels, 2500)
+    const fallbackTimer = window.setTimeout(loadReels, mobileViewport ? 700 : 2500)
 
     window.addEventListener('luxurySceneProgress', handleSceneProgress)
 
     return () => {
-      if (fallbackTimer) window.clearTimeout(fallbackTimer)
+      window.clearTimeout(fallbackTimer)
       window.removeEventListener('luxurySceneProgress', handleSceneProgress)
     }
   }, [])
 
   const goToReel = (index) => {
     setActiveReel((index + reels.length) % reels.length)
+    if (canLoadReels) {
+      setVideoRefreshKey((key) => key + 1)
+    }
   }
 
   const goToPage = (index) => {
@@ -131,14 +134,14 @@ export default function Atelier() {
                       className="atelier-reel"
                       aria-hidden={index !== activeReel}
                     >
-                      {canLoadReels ? (
+                      {canLoadReels && index === activeReel ? (
                         <iframe
-                          key={`${reel.src}-${index === activeReel ? videoRefreshKey : 'idle'}`}
-                          src={reel.src}
+                          key={`${reel.src}-${videoRefreshKey}`}
+                          src={`${reel.src}&refresh=${videoRefreshKey}`}
                           title={`Vidéo atelier ${index + 1}`}
-                          allow="autoplay; encrypted-media; fullscreen; picture-in-picture"
+                          allow="autoplay; fullscreen; encrypted-media; picture-in-picture"
                           allowFullScreen
-                          loading={index === activeReel ? 'eager' : 'lazy'}
+                          loading="eager"
                           style={{
                             width: '100%',
                             height: '100%',
