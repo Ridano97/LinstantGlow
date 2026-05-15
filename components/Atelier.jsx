@@ -7,15 +7,15 @@ import { motion } from 'framer-motion'
 const reels = [
   {
     label: '',
-    src: 'https://iframe.videodelivery.net/8fe8e4e3edf206e9b87a9ae3dd1143c7?autoplay=true&muted=true&loop=true&controls=false&playsinline=true&preload=auto',
+    src: 'https://iframe.videodelivery.net/8fe8e4e3edf206e9b87a9ae3dd1143c7?autoplay=true&muted=true&loop=true&controls=true&playsinline=true&preload=auto',
   },
   {
     label: '',
-    src: 'https://iframe.videodelivery.net/4afcba2681602c9a840cad1e6be851fe?autoplay=true&muted=true&loop=true&controls=false&playsinline=true&preload=auto',
+    src: 'https://iframe.videodelivery.net/4afcba2681602c9a840cad1e6be851fe?autoplay=true&muted=true&loop=true&controls=true&playsinline=true&preload=auto',
   },
   {
     label: '',
-    src: 'https://iframe.videodelivery.net/c270bf514ac626480422baa9bd4486bd?autoplay=true&muted=true&loop=true&controls=false&playsinline=true&preload=auto',
+    src: 'https://iframe.videodelivery.net/c270bf514ac626480422baa9bd4486bd?autoplay=true&muted=true&loop=true&controls=true&playsinline=true&preload=auto',
   },
 ]
 
@@ -46,6 +46,7 @@ export default function Atelier() {
   const [activePage, setActivePage] = useState(0)
   const [isMobile, setIsMobile] = useState(false)
   const [canLoadReels, setCanLoadReels] = useState(false)
+  const [videoRefreshKey, setVideoRefreshKey] = useState(0)
 
   useEffect(() => {
     const mq = window.matchMedia('(max-width: 620px)')
@@ -62,6 +63,7 @@ export default function Atelier() {
     const handleSceneProgress = (event) => {
       if (typeof event.detail === 'number' && event.detail >= 0.74) {
         loadReels()
+        setVideoRefreshKey((key) => key + 1)
       }
     }
     const fallbackTimer = mobileViewport ? null : window.setTimeout(loadReels, 2500)
@@ -131,6 +133,7 @@ export default function Atelier() {
                     >
                       {canLoadReels ? (
                         <iframe
+                          key={`${reel.src}-${index === activeReel ? videoRefreshKey : 'idle'}`}
                           src={reel.src}
                           title={`Vidéo atelier ${index + 1}`}
                           allow="autoplay; encrypted-media; fullscreen; picture-in-picture"
@@ -141,7 +144,6 @@ export default function Atelier() {
                             height: '100%',
                             border: 0,
                             display: 'block',
-                            pointerEvents: 'none',
                           }}
                         />
                       ) : (
