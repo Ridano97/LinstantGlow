@@ -321,13 +321,13 @@ main {
   }
 
   html.scene-fullpage .scene-scroll {
-    height: 100dvh;
+    height: 100svh;
     overflow: hidden;
   }
 
   html.scene-fullpage .scene-stage {
     position: relative;
-    height: 100dvh;
+    height: 100svh;
     overflow: hidden;
     background: #efe2d0;
   }
@@ -340,7 +340,7 @@ main {
   html.scene-fullpage .scene-panel {
     position: absolute;
     inset: 0;
-    height: 100dvh;
+    height: 100svh;
     overflow: hidden;
     opacity: 0;
     visibility: hidden;

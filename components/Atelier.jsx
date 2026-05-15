@@ -59,22 +59,17 @@ export default function Atelier() {
     const loadReels = () => setCanLoadReels(true)
     const mobileViewport = window.matchMedia('(max-width: 900px)').matches
 
-    if (mobileViewport) {
-      loadReels()
-      return undefined
-    }
-
     const handleSceneProgress = (event) => {
       if (typeof event.detail === 'number' && event.detail >= 0.74) {
         loadReels()
       }
     }
-    const fallbackTimer = window.setTimeout(loadReels, 2500)
+    const fallbackTimer = mobileViewport ? null : window.setTimeout(loadReels, 2500)
 
     window.addEventListener('luxurySceneProgress', handleSceneProgress)
 
     return () => {
-      window.clearTimeout(fallbackTimer)
+      if (fallbackTimer) window.clearTimeout(fallbackTimer)
       window.removeEventListener('luxurySceneProgress', handleSceneProgress)
     }
   }, [])

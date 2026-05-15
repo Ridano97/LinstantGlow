@@ -44,6 +44,7 @@ export default function LuxuryScroll() {
     let touchStartX = 0
     let touchStartY = 0
     let touchStartedInScrollableZone = false
+    let verticalScrollableElement = null
     let lastWheelAt = 0
     let transitionTimer = null
 
@@ -79,7 +80,7 @@ export default function LuxuryScroll() {
 
     const isInsideServiceModal = (target) => target.closest?.('.service-modal, .service-modal-backdrop')
     const isInsideScrollableZone = (target) => target.closest?.('.services-grid, .atelier-phone-carousel, .atelier-reels-track, .atelier-mobile-track')
-    const isInsideVerticalScrollableZone = (target) => target.closest?.('.slogan, .service-modal-prices')
+    const getVerticalScrollableZone = (target) => target.closest?.('.slogan, .service-modal-prices')
 
     const goToScene = (nextScene) => {
       const targetScene = clamp(nextScene, 0, panels.length - 1)
@@ -146,10 +147,11 @@ export default function LuxuryScroll() {
       touchStartX = event.touches[0]?.clientX ?? 0
       touchStartY = event.touches[0]?.clientY ?? 0
       touchStartedInScrollableZone = Boolean(isInsideScrollableZone(event.target))
+      verticalScrollableElement = getVerticalScrollableZone(event.target) ?? null
     }
 
     const handleTouchMove = (event) => {
-      if (isInsideServiceModal(event.target) || isInsideVerticalScrollableZone(event.target)) return
+      if (isInsideServiceModal(event.target) || verticalScrollableElement) return
 
       const touch = event.touches[0]
       const distanceX = (touch?.clientX ?? touchStartX) - touchStartX
@@ -161,7 +163,7 @@ export default function LuxuryScroll() {
     }
 
     const handleTouchEnd = (event) => {
-      if (isInsideServiceModal(event.target) || isInsideVerticalScrollableZone(event.target)) return
+      if (isInsideServiceModal(event.target)) return
 
       const touchEndX = event.changedTouches[0]?.clientX ?? touchStartX
       const touchEndY = event.changedTouches[0]?.clientY ?? touchStartY
@@ -169,6 +171,26 @@ export default function LuxuryScroll() {
       const distance = touchStartY - touchEndY
 
       if (touchStartedInScrollableZone && Math.abs(horizontalDistance) > Math.abs(distance)) return
+
+      if (verticalScrollableElement) {
+        const { scrollTop, scrollHeight, clientHeight } = verticalScrollableElement
+        const atTop = scrollTop <= 2
+        const atBottom = scrollTop + clientHeight >= scrollHeight - 2
+        const isContactScene = verticalScrollableElement.classList.contains('slogan')
+
+        if (isContactScene && Math.abs(distance) > 42 && distance < 0) {
+          goToScene(activeScene - 1)
+          verticalScrollableElement = null
+          return
+        }
+
+        if (Math.abs(distance) > 42 && ((distance < 0 && atTop) || (distance > 0 && atBottom))) {
+          goToScene(activeScene + (distance > 0 ? 1 : -1))
+        }
+
+        verticalScrollableElement = null
+        return
+      }
 
       if (Math.abs(distance) > 42) {
         goToScene(activeScene + (distance > 0 ? 1 : -1))
