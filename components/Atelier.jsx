@@ -7,15 +7,15 @@ import { motion } from 'framer-motion'
 const reels = [
   {
     label: '',
-    src: 'https://iframe.videodelivery.net/8fe8e4e3edf206e9b87a9ae3dd1143c7?autoplay=true&muted=true&loop=true&controls=true&playsinline=true&preload=auto',
+    src: 'https://iframe.videodelivery.net/8fe8e4e3edf206e9b87a9ae3dd1143c7?autoplay=true&muted=true&loop=true&controls=false&playsinline=true&preload=auto',
   },
   {
     label: '',
-    src: 'https://iframe.videodelivery.net/4afcba2681602c9a840cad1e6be851fe?autoplay=true&muted=true&loop=true&controls=true&playsinline=true&preload=auto',
+    src: 'https://iframe.videodelivery.net/4afcba2681602c9a840cad1e6be851fe?autoplay=true&muted=true&loop=true&controls=false&playsinline=true&preload=auto',
   },
   {
     label: '',
-    src: 'https://iframe.videodelivery.net/c270bf514ac626480422baa9bd4486bd?autoplay=true&muted=true&loop=true&controls=true&playsinline=true&preload=auto',
+    src: 'https://iframe.videodelivery.net/c270bf514ac626480422baa9bd4486bd?autoplay=true&muted=true&loop=true&controls=false&playsinline=true&preload=auto',
   },
 ]
 
@@ -144,6 +144,7 @@ export default function Atelier() {
                             height: '100%',
                             border: 0,
                             display: 'block',
+                            pointerEvents: 'none',
                           }}
                         />
                       ) : (
