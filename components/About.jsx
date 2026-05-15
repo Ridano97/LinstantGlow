@@ -2,6 +2,7 @@
 
 import Image from 'next/image'
 import { motion } from 'framer-motion'
+import useActiveScene from './useActiveScene'
 
 const imageReveal = {
   hidden: { opacity: 0, x: -36, scale: 0.985 },
@@ -34,14 +35,15 @@ const itemReveal = {
 }
 
 export default function About() {
+  const isActive = useActiveScene(1)
+
   return (
     <section className="about">
       <motion.div
         className="about-image"
         variants={imageReveal}
         initial="hidden"
-        whileInView="show"
-        viewport={{ once: true, amount: 0.38 }}
+        animate={isActive ? 'show' : 'hidden'}
       >
         <Image
           src="/images-linstantglow/10.jpeg"
@@ -56,8 +58,7 @@ export default function About() {
         className="about-content"
         variants={contentReveal}
         initial="hidden"
-        whileInView="show"
-        viewport={{ once: true, amount: 0.42 }}
+        animate={isActive ? 'show' : 'hidden'}
       >
         <motion.p className="section-kicker" variants={itemReveal}>Le salon</motion.p>
         <motion.h2 className="about-title" variants={itemReveal}>Une expérience beauté exclusive, pensée pour vous.</motion.h2>

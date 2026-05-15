@@ -4,6 +4,38 @@ import { useEffect, useRef, useState } from 'react'
 import Image from 'next/image'
 import { createPortal } from 'react-dom'
 import { motion, AnimatePresence, useInView } from 'framer-motion'
+import useActiveScene from './useActiveScene'
+
+const revealGroup = {
+  hidden: { opacity: 1 },
+  show: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.13,
+      delayChildren: 0.08,
+    },
+  },
+}
+
+const revealCards = {
+  hidden: { opacity: 1 },
+  show: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.16,
+      delayChildren: 0.42,
+    },
+  },
+}
+
+const revealItem = {
+  hidden: { opacity: 0, y: 26 },
+  show: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.72, ease: [0.22, 1, 0.36, 1] },
+  },
+}
 
 function AutoImageCarousel({ images, alt, sizes, isActive = true }) {
   const ref = useRef(null)
@@ -220,6 +252,7 @@ const services = [
 
 export default function Services() {
   const [activeService, setActiveService] = useState(null)
+  const isActive = useActiveScene(2)
   const canUsePortal = typeof document !== 'undefined'
 
   const openService = (service) => setActiveService(service)
@@ -297,25 +330,32 @@ export default function Services() {
 
   return (
     <section className="services">
-      <div className="services-heading">
-        <div>
+      <motion.div
+        className="services-heading"
+        variants={revealGroup}
+        initial="hidden"
+        animate={isActive ? 'show' : 'hidden'}
+      >
+        <motion.div variants={revealItem}>
           <p className="section-kicker">Prestations</p>
           <h2 className="services-title">Des soins précis, un fini naturellement luxueux.</h2>
-        </div>
-        <p className="services-intro">Chaque soin est choisi selon votre peau, votre rythme et l&apos;effet recherché : subtil, intense ou solaire.</p>
-      </div>
+        </motion.div>
+        <motion.p className="services-intro" variants={revealItem}>Chaque soin est choisi selon votre peau, votre rythme et l&apos;effet recherché : subtil, intense ou solaire.</motion.p>
+      </motion.div>
 
-      <div className="services-grid">
-        {services.map((s, i) => (
+      <motion.div
+        className="services-grid"
+        variants={revealCards}
+        initial="hidden"
+        animate={isActive ? 'show' : 'hidden'}
+      >
+        {services.map((s) => (
           <motion.button
             type="button"
             key={s.title}
             className="services-card"
             onClick={() => openService(s)}
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: i * 0.15, ease: 'easeOut' }}
-            viewport={{ once: true }}
+            variants={revealItem}
           >
             <div className="services-card-img">
               <ServiceImage service={s} sizes="(max-width: 700px) 100vw, (max-width: 1180px) 50vw, 25vw" />
@@ -328,7 +368,7 @@ export default function Services() {
             </div>
           </motion.button>
         ))}
-      </div>
+      </motion.div>
 
       {canUsePortal ? createPortal(serviceModal, document.body) : null}
     </section>

@@ -54,6 +54,13 @@ export default function LuxuryScroll() {
       }))
     }
 
+    const dispatchSceneChange = () => {
+      html.dataset.luxuryScene = String(activeScene)
+      window.dispatchEvent(new CustomEvent('luxurySceneChange', {
+        detail: { activeScene },
+      }))
+    }
+
     const cleanPanel = (panel) => {
       panel.classList.remove('scene-panel-active', 'scene-panel-exit')
     }
@@ -76,6 +83,7 @@ export default function LuxuryScroll() {
       body.classList.add('scene-fullpage')
       activateScene(activeScene)
       dispatchProgress()
+      dispatchSceneChange()
     }
 
     const isInsideServiceModal = (target) => target.closest?.('.service-modal, .service-modal-backdrop')
@@ -109,6 +117,7 @@ export default function LuxuryScroll() {
       window.clearTimeout(transitionTimer)
       activeScene = targetScene
       dispatchProgress()
+      dispatchSceneChange()
 
       cleanPanel(incoming)
       setPanelVector(incoming, 'enter', enterVector)

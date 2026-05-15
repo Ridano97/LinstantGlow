@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react'
 import Image from 'next/image'
 import { motion } from 'framer-motion'
+import useActiveScene from './useActiveScene'
 
 const hours = [
   ['Lundi', 'Fermé'],
@@ -60,6 +61,26 @@ const googleReviews = [
 const REVIEWS_LINK =
   'https://www.google.com/search?q=L%27instant+Glow+Avis&stick=H4sIAAAAAAAAAONgkxI2NDYwMzc0MzA0MDExtDAyN7E038DI-IpR2Ec9M6-4JDGvRME9J79cwbEss3gRKzZRAOuVqXdGAAAA'
 
+const revealGroup = {
+  hidden: { opacity: 1 },
+  show: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.12,
+      delayChildren: 0.1,
+    },
+  },
+}
+
+const revealItem = {
+  hidden: { opacity: 0, y: 24 },
+  show: (delay = 0) => ({
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.78, delay, ease: [0.22, 1, 0.36, 1] },
+  }),
+}
+
 function GoogleLogo() {
   return (
     <svg className="google-logo" viewBox="0 0 48 48" aria-hidden="true">
@@ -111,6 +132,7 @@ function SnapchatIcon() {
 
 export default function Slogan() {
   const [activeReview, setActiveReview] = useState(0)
+  const isActive = useActiveScene(4)
   const visibleReviews = [
     googleReviews[activeReview],
     googleReviews[(activeReview + 1) % googleReviews.length],
@@ -129,29 +151,28 @@ export default function Slogan() {
       <div className="slogan-inner">
         <motion.div
           className="slogan-text"
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, ease: 'easeOut' }}
-          viewport={{ once: true }}
+          variants={revealGroup}
+          initial="hidden"
+          animate={isActive ? 'show' : 'hidden'}
         >
-          <p className="section-kicker">Contact</p>
+          <motion.p className="section-kicker" variants={revealItem}>Contact</motion.p>
 
-          <span className="slogan-line1">Votre éclat,</span>
-          <span className="slogan-line2">notre signature</span>
+          <motion.span className="slogan-line1" variants={revealItem}>Votre éclat,</motion.span>
+          <motion.span className="slogan-line2" variants={revealItem}>notre signature</motion.span>
 
-          <p className="slogan-copy">
+          <motion.p className="slogan-copy" variants={revealItem}>
             Réservez votre soin en ligne ou retrouvez l&apos;institut à
             Prévessin-Moëns pour un moment beauté précis, doux et lumineux.
-          </p>
+          </motion.p>
 
-          <div className="slogan-full-logo">
+          <motion.div className="slogan-full-logo" variants={revealItem}>
             <Image
               src="/images-linstantglow/logocomplet.jpg"
               alt="L'Instant Glow"
               width={520}
               height={260}
             />
-          </div>
+          </motion.div>
         </motion.div>
 
         <div className="slogan-right">
@@ -162,10 +183,10 @@ export default function Slogan() {
           >
             <motion.aside
               className="slogan-reviews"
-              initial={{ opacity: 0, y: 28 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.95, ease: 'easeOut', delay: 0.12 }}
-              viewport={{ once: true }}
+              variants={revealItem}
+              custom={0.38}
+              initial="hidden"
+              animate={isActive ? 'show' : 'hidden'}
               aria-label="Avis Google L'Instant Glow"
             >
               <div className="slogan-reviews-header">
@@ -247,10 +268,10 @@ export default function Slogan() {
 
             <motion.div
               className="footer-glow-card"
-              initial={{ opacity: 0, y: 28 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.85, delay: 0.12, ease: 'easeOut' }}
-              viewport={{ once: true }}
+              variants={revealItem}
+              custom={0.56}
+              initial="hidden"
+              animate={isActive ? 'show' : 'hidden'}
             >
               <div className="footer-glow-column">
                 <h3>Adresse</h3>

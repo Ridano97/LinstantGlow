@@ -2,8 +2,20 @@
 
 import Image from 'next/image'
 import { motion } from 'framer-motion'
+import useActiveScene from './useActiveScene'
+
+const revealItem = {
+  hidden: { opacity: 0, y: 22 },
+  show: (delay = 0) => ({
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.85, delay, ease: [0.22, 1, 0.36, 1] },
+  }),
+}
 
 export default function Hero() {
+  const isActive = useActiveScene(0)
+
   return (
     <section className="hero">
       <Image
@@ -28,16 +40,18 @@ export default function Hero() {
       <div className="hero-content">
         <motion.p
           className="hero-eyebrow"
-          initial={{ opacity: 0, y: 18 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, ease: 'easeOut' }}
+          variants={revealItem}
+          custom={0}
+          initial="hidden"
+          animate={isActive ? 'show' : 'hidden'}
         >
         </motion.p>
         <motion.h1
           className="hero-title hero-title-logo-wrap"
-          initial={{ opacity: 0, y: 28 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1.2, ease: 'easeOut' }}
+          variants={revealItem}
+          custom={0.12}
+          initial="hidden"
+          animate={isActive ? 'show' : 'hidden'}
         >
           <span className="sr-only">L&apos;Instant Glow — Institut de beauté &amp; salon UV</span>
           <Image
@@ -53,18 +67,20 @@ export default function Hero() {
 
         <motion.p
           className="hero-subtitle"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, delay: 0.4, ease: 'easeOut' }}
+          variants={revealItem}
+          custom={0.34}
+          initial="hidden"
+          animate={isActive ? 'show' : 'hidden'}
         >
           Institut de beauté, salon UV et soins glow pour un résultat précis, lumineux et naturellement élégant.
         </motion.p>
 
         <motion.div
           className="hero-actions"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, delay: 0.7, ease: 'easeOut' }}
+          variants={revealItem}
+          custom={0.5}
+          initial="hidden"
+          animate={isActive ? 'show' : 'hidden'}
         >
           <a href="#contact" className="hero-btn">Réservez votre soin</a>
           <a href="#prestations" className="hero-btn-secondary">Découvrir les soins</a>
@@ -72,9 +88,10 @@ export default function Hero() {
 
         <motion.div
           className="hero-signature"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 1, delay: 1 }}
+          variants={revealItem}
+          custom={0.68}
+          initial="hidden"
+          animate={isActive ? 'show' : 'hidden'}
           aria-label="Prestations signatures"
         >
           <span className="hero-signature-label">Soins signature</span>
