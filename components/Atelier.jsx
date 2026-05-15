@@ -41,6 +41,15 @@ const photoColumns = [
   [atelierPhotos[2], atelierPhotos[3], atelierPhotos[6], atelierPhotos[9]],
 ]
 
+const revealUp = {
+  hidden: { opacity: 0, y: 24 },
+  show: (delay = 0) => ({
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.8, delay, ease: [0.22, 1, 0.36, 1] },
+  }),
+}
+
 export default function Atelier() {
   const [activeReel, setActiveReel] = useState(0)
   const [activePage, setActivePage] = useState(0)
@@ -110,12 +119,27 @@ export default function Atelier() {
           onDragEnd={handlePageSwipe}
         >
           <div className="atelier-left">
-            <div className="atelier-heading">
+            <motion.div
+              className="atelier-heading"
+              variants={revealUp}
+              custom={0}
+              initial="hidden"
+              whileInView="show"
+              viewport={{ once: true, amount: 0.5 }}
+            >
               <p className="section-kicker">Ambiance</p>
               <h2>Un lieu calme, lumineux, pensé pour ralentir.</h2>
-            </div>
+            </motion.div>
 
-            <div className="atelier-phone-carousel" aria-label="Vidéos de l'atelier L'Instant Glow">
+            <motion.div
+              className="atelier-phone-carousel"
+              aria-label="Vidéos de l'atelier L'Instant Glow"
+              variants={revealUp}
+              custom={0.14}
+              initial="hidden"
+              whileInView="show"
+              viewport={{ once: true, amount: 0.35 }}
+            >
               <div className="atelier-phone">
                 <div className="atelier-phone-speaker" aria-hidden="true" />
 
@@ -174,17 +198,32 @@ export default function Atelier() {
                   />
                 ))}
               </div>
-            </div>
+            </motion.div>
           </div>
 
           <div className="atelier-right">
-            <div className="atelier-gallery-copy">
+            <motion.div
+              className="atelier-gallery-copy"
+              variants={revealUp}
+              custom={0.12}
+              initial="hidden"
+              whileInView="show"
+              viewport={{ once: true, amount: 0.4 }}
+            >
               <span>Galerie</span>
-            </div>
+            </motion.div>
 
             <div className="atelier-photo-river" aria-label="Photos de l'institut L'Instant Glow">
               {photoColumns.map((column, columnIndex) => (
-                <div className="atelier-photo-column" key={`column-${columnIndex}`}>
+                <motion.div
+                  className="atelier-photo-column"
+                  key={`column-${columnIndex}`}
+                  variants={revealUp}
+                  custom={0.2 + columnIndex * 0.12}
+                  initial="hidden"
+                  whileInView="show"
+                  viewport={{ once: true, amount: 0.22 }}
+                >
                   <div className="atelier-photo-track">
                     {[...column, ...column].map((photo, index) => (
                       <figure className={`atelier-photo-card is-${photo.shape}`} key={`${photo.src}-${index}`}>
@@ -198,7 +237,7 @@ export default function Atelier() {
                       </figure>
                     ))}
                   </div>
-                </div>
+                </motion.div>
               ))}
             </div>
           </div>
