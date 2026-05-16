@@ -406,4 +406,9 @@ main {
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
   }
+
+  html.scene-fullpage .scene-panel > .about {
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+  }
 }
