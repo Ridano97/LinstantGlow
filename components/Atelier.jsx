@@ -87,6 +87,17 @@ export default function Atelier() {
     }
   }, [])
 
+  useEffect(() => {
+    if (!isActive) return
+
+    const frameId = window.requestAnimationFrame(() => {
+      setCanLoadReels(true)
+      setVideoRefreshKey((key) => key + 1)
+    })
+
+    return () => window.cancelAnimationFrame(frameId)
+  }, [isActive])
+
   const goToReel = (index) => {
     setActiveReel((index + reels.length) % reels.length)
     if (canLoadReels) {
@@ -163,7 +174,7 @@ export default function Atelier() {
                           key={`${reel.src}-${videoRefreshKey}`}
                           src={`${reel.src}&refresh=${videoRefreshKey}`}
                           title={`Vidéo atelier ${index + 1}`}
-                          allow="autoplay; fullscreen; encrypted-media; picture-in-picture"
+                          allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture; fullscreen"
                           allowFullScreen
                           loading="eager"
                           style={{

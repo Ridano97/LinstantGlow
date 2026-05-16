@@ -4,6 +4,15 @@ import Image from 'next/image'
 import { motion } from 'framer-motion'
 import useActiveScene from './useActiveScene'
 
+const signatureItems = [
+  'Extensions de cils',
+  'Brow lift',
+  'Soin visage',
+  'Blanchiment dentaire',
+  'Corps & soleil UV',
+  'Beauté des mains & pieds',
+]
+
 const revealItem = {
   hidden: { opacity: 0, y: 22 },
   show: (delay = 0) => ({
@@ -23,7 +32,16 @@ export default function Hero() {
         alt=""
         fill
         sizes="100vw"
-        className="hero-bg-img"
+        className="hero-bg-img hero-bg-desktop"
+        priority
+        aria-hidden="true"
+      />
+      <Image
+        src="/images-linstantglow/canapeaccueil.jpg"
+        alt=""
+        fill
+        sizes="100vw"
+        className="hero-bg-img hero-bg-mobile"
         priority
         aria-hidden="true"
       />
@@ -96,12 +114,21 @@ export default function Hero() {
         >
           <span className="hero-signature-label">Soins signature</span>
           <div className="hero-signature-list">
-            <span>Extensions de cils</span>
-            <span>Brow lift</span>
-            <span>Soin visage</span>
-            <span>Blanchiment dentaire</span>
-            <span>Corps & soleil UV</span>
-            <span>Beauté des mains & pieds</span>
+            <div className="hero-signature-track">
+              {signatureItems.map((item) => (
+                <span key={item}>{item}</span>
+              ))}
+              {signatureItems.map((item) => (
+                <span className="hero-signature-duplicate" key={`${item}-duplicate`} aria-hidden="true">
+                  {item}
+                </span>
+              ))}
+              {signatureItems.map((item) => (
+                <span className="hero-signature-duplicate" key={`${item}-duplicate-2`} aria-hidden="true">
+                  {item}
+                </span>
+              ))}
+            </div>
           </div>
         </motion.div>
       </div>
