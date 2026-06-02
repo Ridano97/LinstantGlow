@@ -144,13 +144,6 @@ const services = [
         ],
       },
       {
-        title: 'Blanchiment dentaire',
-        rows: [
-          ['1 séance extra white', '145€'],
-          ['2 séances extra white', '250€'],
-        ],
-      },
-      {
         title: 'Épilation visage',
         rows: [
           ['Sourcils', '20€'],

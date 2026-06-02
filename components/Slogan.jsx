@@ -132,6 +132,7 @@ function SnapchatIcon() {
 
 export default function Slogan() {
   const [activeReview, setActiveReview] = useState(0)
+  const [legalOpen, setLegalOpen] = useState(false)
   const isActive = useActiveScene(4)
   const visibleReviews = [
     googleReviews[activeReview],
@@ -145,6 +146,19 @@ export default function Slogan() {
 
     return () => window.clearInterval(timer)
   }, [])
+
+  useEffect(() => {
+    if (!legalOpen) return undefined
+
+    const handleKeyDown = (event) => {
+      if (event.key === 'Escape') {
+        setLegalOpen(false)
+      }
+    }
+
+    window.addEventListener('keydown', handleKeyDown)
+    return () => window.removeEventListener('keydown', handleKeyDown)
+  }, [legalOpen])
 
   return (
     <footer className="slogan">
@@ -290,6 +304,14 @@ export default function Slogan() {
                 >
                   Voir l&apos;itinéraire
                 </a>
+
+                <button
+                  className="footer-legal-trigger"
+                  type="button"
+                  onClick={() => setLegalOpen(true)}
+                >
+                  Mentions légales
+                </button>
               </div>
 
               <div className="footer-glow-column">
@@ -362,6 +384,103 @@ export default function Slogan() {
 
         </div>
       </div>
+
+      {legalOpen && (
+        <div
+          className="legal-modal"
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="legal-modal-title"
+        >
+          <button
+            className="legal-modal-backdrop"
+            type="button"
+            aria-label="Fermer les mentions légales"
+            onClick={() => setLegalOpen(false)}
+          />
+
+          <div className="legal-modal-panel">
+            <div className="legal-modal-header">
+              <p className="section-kicker">Informations</p>
+              <button
+                className="legal-modal-close"
+                type="button"
+                aria-label="Fermer"
+                onClick={() => setLegalOpen(false)}
+              >
+                ×
+              </button>
+            </div>
+
+            <h2 id="legal-modal-title">Mentions légales</h2>
+
+            <div className="legal-modal-grid">
+              <section>
+                <h3>Éditeur du site</h3>
+                <p>
+                  SB, société par actions simplifiée
+                  <br />
+                  107 Route de Saint-Genis
+                  <br />
+                  01280 Prévessin-Moëns, France
+                </p>
+                <ul>
+                  <li>SIREN : 939 903 613</li>
+                  <li>SIRET : 939 903 613 00015</li>
+                  <li>TVA intracommunautaire : FR03939903613</li>
+                  <li>Code APE / NAF : 9602B - Soins de beauté</li>
+                  <li>Dirigeant : Yanis HAKKAR</li>
+                </ul>
+              </section>
+
+              <section>
+                <h3>Contact</h3>
+                <p>
+                  Téléphone : <a href="tel:+330450563649">04 50 56 36 49</a>
+                  <br />
+                  Email : <a href="mailto:contact@instantglow.fr">contact@instantglow.fr</a>
+                </p>
+                <p>
+                  Directeur de la publication : Yanis HAKKAR.
+                </p>
+              </section>
+
+              <section>
+                <h3>Nom de domaine</h3>
+                <p>
+                  Le nom de domaine linstantglow.com est enregistré auprès de
+                  IONOS SARL, 7 Place de la Gare, BP 70109, 57201
+                  Sarreguemines Cedex, France.
+                </p>
+              </section>
+
+              <section>
+                <h3>Hébergement</h3>
+                <p>
+                  Le site est déployé et hébergé par Vercel Inc., 440 N
+                  Barranca Avenue #4133, Covina, CA 91723, United States.
+                </p>
+              </section>
+
+              <section>
+                <h3>Réalisation</h3>
+                <p>
+                  Site conçu et réalisé par RIO DIGITAL LAB.
+                </p>
+              </section>
+
+              <section>
+                <h3>Propriété intellectuelle</h3>
+                <p>
+                  Les textes, visuels, logos, photographies et éléments du site
+                  sont protégés. Toute reproduction ou utilisation sans
+                  autorisation écrite préalable est interdite.
+                </p>
+              </section>
+            </div>
+          </div>
+        </div>
+      )}
     </footer>
   )
 }
