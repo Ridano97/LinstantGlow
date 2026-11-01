@@ -130,8 +130,8 @@ const services = [
   {
     title: 'Peau lumineuse',
     img: '21.jpg',
-    text: 'Soins visage, un sourire lumineux, glow skin et protocoles ciblés pour une peau nette, souple et éclatante.',
-    images: ['21.jpg', '30-optimized.jpg'],
+    text: 'Soins visage, glow skin et protocoles ciblés pour une peau nette, souple et éclatante.',
+    images: ['21.jpg'],
     sections: [
       {
         title: 'Soin visage',
